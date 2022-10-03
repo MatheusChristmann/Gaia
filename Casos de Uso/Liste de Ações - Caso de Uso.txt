@@ -1,0 +1,58 @@
+Atores:
+Comprador
+Atendente/Vendedor
+Gerente
+
+----------------------------------------------------------
+
+Genérico:
+Efetuar Login
+Conceder Permissões
+Visualizar relatório
+-------------------------------
+Produtos:
+Cadastrar Produtos
+Alterar Produtos
+Consultar produtos
+	Analisar estoque
+-------------------------------
+Pessoa:
+Cadastrar Pessoas
+Alterar Pessoas
+	Ativar ou Inativar (Status)
+Consultar Pessoas
+-------------------------------
+Endereço:
+Cadastrar Endereços
+Alterar Endereços
+Consultar Endereços
+-------------------------------
+Funcionário:
+Cadastrar Funcionários
+Alterar Funcionários
+	Admitir Funcionário
+	Demitir Funcionário
+	Alterar cargo
+Consultar Funcionários
+-------------------------------
+Cargo:
+Cadastrar Cargos
+Alterar Cargos
+	Alterar salário
+Consultar Cargos
+-------------------------------
+Tipos de Pagamento:
+Cadastrar Tipos de Pagamento
+Alterar Tipos de Pagamento
+-------------------------------
+Compra:
+Efetuar Compra
+Consultar
+Verificar situação do fornecedor
+-------------------------------
+Venda:
+Efetuar Venda
+Consultar
+Escanear receita
+Verificar situação do cliente
+
