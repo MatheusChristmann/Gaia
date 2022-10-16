@@ -1,58 +1,73 @@
 Atores:
-Comprador
-Atendente/Vendedor
-Gerente
+- Comprador/Estoquista
+- Atendente/Vendedor
+- Gerente
 
 ----------------------------------------------------------
 
 Genérico:
-Efetuar Login
-Conceder Permissões
-Visualizar relatório
--------------------------------
-Produtos:
-Cadastrar Produtos
-Alterar Produtos
-Consultar produtos
-	Analisar estoque
--------------------------------
-Pessoa:
-Cadastrar Pessoas
-Alterar Pessoas
-	Ativar ou Inativar (Status)
-Consultar Pessoas
--------------------------------
-Endereço:
-Cadastrar Endereços
-Alterar Endereços
-Consultar Endereços
--------------------------------
+- Conceder Permissão
+- Efetuar Login Atendente
+- Efetuar Login Comprador
+- Visualizar Relatório
+----------------------------------
 Funcionário:
-Cadastrar Funcionários
-Alterar Funcionários
-	Admitir Funcionário
-	Demitir Funcionário
-	Alterar cargo
-Consultar Funcionários
--------------------------------
+- Cadastrar/Admitir Funcionário
+- Consultar Funcionário
+- Alterar Funcionário
+	- Demitir Funcionário
+	- Trocar Cargo do Funcionário
+----------------------------------
 Cargo:
-Cadastrar Cargos
-Alterar Cargos
-	Alterar salário
-Consultar Cargos
--------------------------------
-Tipos de Pagamento:
-Cadastrar Tipos de Pagamento
-Alterar Tipos de Pagamento
--------------------------------
-Compra:
-Efetuar Compra
-Consultar
-Verificar situação do fornecedor
--------------------------------
+- Cadastrar Cargo
+- Consultar Cargo
+- Alterar Cargo
+	- Alterar Salário
+----------------------------------
+Tipo de Pagamento:
+- Cadastrar Tipo de Pagamento
+- Alterar Tipo de Pagamento
+----------------------------------
+Endereço:
+- Cadastrar Endereço
+- Consultar Endereço
+- Alterar Endereço
+----------------------------------
+Pessoa:
+- Cadastrar Pessoa
+- Consultar Pessoa
+- Alterar Pessoa
+	- Alterar Status
+----------------------------------
 Venda:
-Efetuar Venda
-Consultar
-Escanear receita
-Verificar situação do cliente
+- Efetuar Venda
+	- Escanear Receita
+	- Analisar Estoque
+	- Verificar Situação Pessoa
+- Consultar Venda
+----------------------------------
+Princípio Ativo:
+- Cadastrar Princípio Ativo
+- Consultar Princípio Ativo
+- Alterar Princípio Ativo
+----------------------------------
+Produto:
+- Cadastrar Produto
+- Consultar Produto
+- Alterar Produto
+	- Alterar Status Produto
+	- Alterar Estoque mínimo Produto
+----------------------------------
+Compra:
+- Efetuar Compra
+	- Analisar Estoque
+	- Verificar Sitruação Pessoa
+- Consultar Compra
+----------------------------------
+
+
+
+
+
+
 
