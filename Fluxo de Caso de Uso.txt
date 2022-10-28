@@ -1,0 +1,70 @@
+Caso de Uso 01 - Efetuando uma Venda para um Cliente
+-----------------------------------------------------------
+Ator Primário: Atendente
+
+Precondições: Cliente a qual vai ser realizado a venda estar devidamente cadastrado no sistema.
+
+
+Fluxo Normal:
+1 - Atendente realiza Login no sistema.
+2 - Atendente efetua o preenchimento de dados para realizar a venda.
+3 - Atendente verifica a situação do cliente (Está Ativo).
+4 - Atendente analisa o estoque dos produtos requeridos pelo cliente para venda.
+5 - Atendente conclui a venda com sucesso.
+
+Fluxo Alternativo: Cliente está com status inativo.
+3a - Atendente verifica que o status do cliente está inativo.
+3b - Atendente altera o status (Inativo para Ativo) no cadastro do cliente.
+Retoma o passo 3.
+
+Fluxo Alternativo: Atendente escaneia receita para realizar a venda.
+2a - Cliente apresenta receita médica para a compra de produtos.
+2b - Atendente escaneia a receita médica e anexa no sistema.
+Retoma o passo 2.
+
+Fluxo Alternativo: Produto a ser vendido sem estoque.
+4a - Atendente verifica que não há estoque do(s) produto(s) a ser(em) vendido(s).
+4b - Atendente notifica a falta de estoque no sistema.
+4c - Atendente informa o cliente da falta de estoque.
+Se encerra o processo de venda devido a falta de estoque do(s) produto(s).
+
+
+
+
+
+
+
+
+Caso de Uso 02 - Efetuando uma compra de um Fornecedor
+-----------------------------------------------------------
+Ator Primário: Comprador
+
+Precondições: Fornecedor do qual vai ser realizado a compra estar devidamente cadastrado no sistema.
+
+Fluxo Normal:
+1 - Comprador efetua login no sistema.
+2 - Comprador
+
+
+
+1 - Atendente realiza Login no sistema.
+2 - Atendente efetua o preenchimento de dados para realizar a venda.
+3 - Atendente verifica a situação do cliente (Está Ativo).
+4 - Atendente analisa o estoque dos produtos requeridos pelo cliente para venda.
+5 - Atendente conclui a venda com sucesso.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
