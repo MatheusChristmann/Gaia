@@ -20,24 +20,24 @@ comment on column estado.est_nome is 'Nome do estado.';
 create table municipio(
 	mun_cod serial constraint municipio_pk primary key,
 	mun_nome varchar(40) not null,
-	cod_estado integer constraint municipio_estado_fk references estado(est_cod) not null
+	mun_estado integer constraint mun_estado_fk references estado(est_cod) not null
 );
  
 comment on table municipio is 'Cadastro de municípios.';
 comment on column municipio.mun_cod is 'Código do município.';
 comment on column municipio.mun_nome is 'Nome do município.';
-comment on column municipio.cod_estado is 'Código do estado do município.';
+comment on column municipio.mun_estado is 'Código do estado do município.';
 
 -----------------------------------------------------------------------------------------------------------------------------
 
 create table cep(
 	cep_numero char(8) constraint cep_pk primary key,
-	cod_municipio integer constraint cep_municipio_fk references municipio(mun_cod) not null
+	cep_municipio integer constraint cep_municipio_fk references municipio(mun_cod) not null
 );
  
 comment on table cep is 'Cadastro de CEP''s.';
 comment on column cep.cep_numero is 'CEP.';
-comment on column cep.cod_municipio is 'Código do município do CEP.';
+comment on column cep.cep_municipio is 'Código do município do CEP.';
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -92,10 +92,10 @@ create table produto(
 	pro_preco numeric(10,2) not null,
 	pro_quantidade integer not null,
 	pro_estoque_minimo integer,	
-	pro_status char(1) constraint produto_pro_status_ck check (pro_status in ('A', 'I')) not null,	
-	pro_principioativo integer constraint produto_principio_ativo_fk references principio_ativo(pra_cod) not null,
-	pro_tipmedicamento integer constraint produto_tipo_medicamento_fk references tipo_medicamento(tim_cod) not null,
-	pro_tiptarja integer constraint produto_tipo_tarja_fk references tipo_tarja(tit_cod) not null
+	pro_status char(1) constraint pro_status_ck check (pro_status in ('A', 'I')) not null,	
+	pro_principioativo integer constraint pro_principio_ativo_fk references principio_ativo(pra_cod) not null,
+	pro_tipmedicamento integer constraint pro_tipo_medicamento_fk references tipo_medicamento(tim_cod) not null,
+	pro_tiptarja integer constraint pro_tipo_tarja_fk references tipo_tarja(tit_cod) not null
 );
  
 comment on table produto is 'Cadastro de produtos/medicamentos.';
@@ -115,8 +115,8 @@ comment on column produto.pro_tiptarja is 'Tipo de tarja do produto.';
 create table pessoa(
 	pes_cod serial constraint pessoa_pk primary key,
 	pes_nome varchar(60) not null,
-	pes_tipo char(1) constraint pessoa_pes_tipo_ck check (pes_tipo in ('J', 'F')) not null,
-	pes_status char(1) constraint pessoa_pes_status_ck check (pes_status in ('A', 'I')) not null,
+	pes_tipo char(1) constraint pes_tipo_ck check (pes_tipo in ('J', 'F')) not null,
+	pes_status char(1) constraint pes_status_ck check (pes_status in ('A', 'I')) not null,
 	pes_datacadastro date not null
 );
  
@@ -131,18 +131,18 @@ comment on column pessoa.pes_datacadastro is 'Data de cadastro da pessoa no sist
 
 create table endereco(
 	end_cod serial constraint endereco_pk primary key,
-	end_tipendereco integer constraint endereco_tipo_endereco_fk references tipo_endereco(ten_cod) not null,
-	end_pessoa integer constraint endereco_pessoa_fk references pessoa(pes_cod) not null,
-	end_cep char(8) constraint endereco_cep_fk references cep(cep_numero) not null,
+	end_tipendereco integer constraint end_tipo_endereco_fk references tipo_endereco(ten_cod) not null,
+	end_pessoa integer constraint end_pessoa_fk references pessoa(pes_cod) not null,
+	end_cep char(8) constraint end_cep_fk references cep(cep_numero) not null,
 	end_bairro varchar(40),
 	end_rua varchar(40),
 	end_numresid integer,
 	end_numtelefone char(8),
 	end_numcelular varchar(13),
-	end_email varchar(40),
-	
-	constraint endereco_pestip_uk unique (end_tipendereco, end_pessoa)
+	end_email varchar(40)	
 );
+
+alter table compra_item add constraint end_pessoatipendereco_uk unique (end_tipendereco, end_pessoa)
  
 comment on table endereco is 'Cadastro de endereços.';
 comment on column endereco.end_cod is 'Código do endereço.';
@@ -160,10 +160,10 @@ comment on column endereco.end_email is 'Endereço de email.';
 
 create table pesfisica(
 	fis_pessoa integer constraint pesfisica_pk primary key,
-	fis_cpf char(11) constraint pesfisica_fis_cpf_uk unique not null,
+	fis_cpf char(11) constraint fis_cpf_uk unique not null,
 	fis_datanascimento date not null,
-	fis_genero char(1) constraint pesfisica_fis_genero check (fis_genero in ('M', 'F', 'O')), -- Pode ser nulo
-	fis_funcionario char(1) constraint pesfisica_fis_funcionario check (fis_funcionario in ('S', 'N')) not null
+	fis_genero char(1) constraint fis_genero_ck check (fis_genero in ('M', 'F', 'O')), -- Pode ser nulo, ou seja, não informou...
+	fis_funcionario char(1) constraint fis_funcionario_ck check (fis_funcionario in ('S', 'N')) not null
 );
  
 alter table pesfisica add constraint pesfisica_pessoa_fk foreign key (fis_pessoa) references pessoa(pes_cod);
@@ -179,11 +179,11 @@ comment on column pesfisica.fis_funcionario is 'Campo que indica se a pessoa é 
 
 create table pesjuridica(
 	jur_pessoa integer constraint pesjuridica_pk primary key,
-	jur_cnpj char(14) constraint pesjuridica_jur_cnpj_uk unique not null,
+	jur_cnpj char(14) constraint jur_cnpj_uk unique not null,
 	jur_datafundacao date
 );
  
-alter table pesjuridica add constraint pesjuridica_pessoa_fk foreign key (jur_pessoa) references pessoa(pes_cod);
+alter table pesjuridica add constraint jur_pessoa_fk foreign key (jur_pessoa) references pessoa(pes_cod);
  
 comment on table pesjuridica is 'cadastro de informações de pessoas jurídicas.';
 comment on column pesjuridica.jur_pessoa is 'código da pessoa jurídica.';
@@ -209,7 +209,7 @@ create table funcionario(
 	fun_pessoa integer constraint funcionario_pk primary key,
 	fun_admissao date not null,
 	fun_demissao date,
-	fun_cargo integer constraint funcionario_cargo_fk references cargo(car_cod) not null
+	fun_cargo integer constraint fun_cargo_fk references cargo(car_cod) not null
 );
  
 comment on table funcionario is 'cadastro de funcionários.';
@@ -222,11 +222,11 @@ comment on column funcionario.fun_cargo is 'código do cargo vinculado ao funcio
 
 create table notificacao_compra(
 	noc_cod serial constraint notificacao_compra_pk primary key,
-	noc_funcionario integer constraint notificacao_compra_funcionario_fk references funcionario(fun_pessoa) not null,
-	noc_produto integer constraint notificacao_compra_produto_fk references produto(pro_cod) not null,
+	noc_funcionario integer constraint noc_funcionario_fk references funcionario(fun_pessoa) not null,
+	noc_produto integer constraint noc_produto_fk references produto(pro_cod) not null,
 	noc_qtd_produto integer not null,
 	noc_data timestamp not null,
-	noc_concluido char(1) constraint notificacao_compra_noc_concluido check (noc_concluido in ('A', 'C')) not null
+	noc_concluido char(1) constraint noc_concluido_ck check (noc_concluido in ('A', 'C')) not null
 );
  
 comment on table notificacao_compra is 'Totificações de compra.';
@@ -242,8 +242,8 @@ comment on column notificacao_compra.noc_concluido is 'Campo que indica de a not
 create table produto_movimento(
 	mov_cod serial constraint produto_movimento_pk primary key,
 	mov_data timestamp not null,
-	mov_funcionario integer constraint produto_movimento_funcionario_fk references funcionario(fun_pessoa) not null,
-	mov_produto integer constraint produto_movimento_produto_fk references produto(pro_cod) not null,
+	mov_funcionario integer constraint mov_funcionario_fk references funcionario(fun_pessoa) not null,
+	mov_produto integer constraint mov_produto_fk references produto(pro_cod) not null,
 	mov_qtd_produto integer not null
 );
  
@@ -270,9 +270,9 @@ comment on column tipo_pagamento.pag_descricao is 'Descrição do tipo de pagame
 create table venda(
 	ven_numero serial constraint venda_pk primary key,
 	ven_data timestamp not null,
-	ven_pessoa integer constraint venda_pessoa_fk references pessoa(pes_cod) not null,
-	ven_pagamento integer constraint venda_tipo_pagamento_fk references tipo_pagamento(pag_cod) not null,
-	ven_funcionario integer constraint venda_funcionario_fk references funcionario(fun_pessoa) not null,
+	ven_pessoa integer constraint ven_pessoa_fk references pessoa(pes_cod) not null,
+	ven_pagamento integer constraint ven_tipo_pagamento_fk references tipo_pagamento(pag_cod) not null,
+	ven_funcionario integer constraint ven_funcionario_fk references funcionario(fun_pessoa) not null,
 	ven_total numeric(10,2) not null,
 	ven_receita bytea
 );
@@ -290,14 +290,14 @@ comment on column venda.ven_receita is 'Receita apresentada durante a venda.';
 
 create table venda_item(
 	vei_cod serial constraint venda_item_pk primary key,
-	vei_numvenda integer constraint venda_item_venda_fk references venda(ven_numero) not null,
-	vei_produto integer constraint venda_item_produto_fk references produto(pro_cod) not null,
+	vei_numvenda integer constraint vei_venda_fk references venda(ven_numero) not null,
+	vei_produto integer constraint vei_produto_fk references produto(pro_cod) not null,
 	vei_qtd_item integer not null,
 	vei_unitario numeric(10,2) not null,
-	vei_total_item numeric(10,2) not null,
-	
-	constraint venda_item_numvenda_produto_uk unique (vei_numvenda, vei_produto)
+	vei_total_item numeric(10,2) not null	
 );
+
+alter table venda_item add constraint vei_vendaproduto_uk unique (vei_numvenda, vei_produto)
  
 comment on table venda_item is 'Itens(produtos) da venda.';
 comment on column venda_item.vei_cod is 'Código de identificação do item da venda.';
@@ -312,39 +312,39 @@ comment on column venda_item.vei_total_item is 'Valor total do item na venda.';
 create table compra(
 	com_numero serial constraint compra_pk primary key,
 	com_data timestamp not null,
-	com_pessoa integer constraint compra_pessoa_fk references pessoa(pes_cod) not null,
-	com_pagamento integer constraint compra_tipo_pagamento_fk references tipo_pagamento(pag_cod) not null,
-	com_funcionario integer constraint compra_funcionario_fk references funcionario(fun_pessoa) not null,
+	com_pessoa integer constraint com_pessoa_fk references pessoa(pes_cod) not null,
+	com_pagamento integer constraint com_tipo_pagamento_fk references tipo_pagamento(pag_cod) not null,
+	com_funcionario integer constraint com_funcionario_fk references funcionario(fun_pessoa) not null,
 	com_total numeric(10,2) not null
 );
   
  
-comment on table compra is 'tabela com registro de compras.';
-comment on column compra.com_numero is 'número da compra.';
-comment on column compra.com_data is 'data e hora da efetivação da compra.';
-comment on column compra.com_pessoa is 'código da pessoa a qual foi feita a compra.';
-comment on column compra.com_pagamento is 'código do tipo de pagamento da compra.';
-comment on column compra.com_funcionario is 'código do funcionário que efetuou a compra.';
-comment on column compra.com_total is 'valor total da compra (somatório dos valores totais dos itens).';
+comment on table compra is 'Tabela com registro de compras.';
+comment on column compra.com_numero is 'Número da compra.';
+comment on column compra.com_data is 'Data e hora da efetivação da compra.';
+comment on column compra.com_pessoa is 'Código da pessoa a qual foi feita a compra.';
+comment on column compra.com_pagamento is 'Código do tipo de pagamento da compra.';
+comment on column compra.com_funcionario is 'Código do funcionário que efetuou a compra.';
+comment on column compra.com_total is 'Valor total da compra (somatório dos valores totais dos itens).';
 
 -----------------------------------------------------------------------------------------------------------------------------
 
 create table compra_item(
 	coi_cod serial constraint compra_item_pk primary key,
-	coi_numcompra integer constraint compra_item_compra_fk references compra(com_numero) not null,
-	coi_produto integer constraint compra_item_produto_fk references produto(pro_cod) not null,
+	coi_numcompra integer constraint coi_compra_fk references compra(com_numero) not null,
+	coi_produto integer constraint coi_produto_fk references produto(pro_cod) not null,
 	coi_qtd_item integer not null,
 	coi_unitario numeric(10,2) not null,
-	coi_total_item numeric(10,2) not null,
-	
-	constraint compra_item_numcompra_produto_uk unique (coi_numcompra, coi_produto)
+	coi_total_item numeric(10,2) not null	
 );
  
-comment on table compra_item is 'itens(produtos) da compra.';
-comment on column compra_item.coi_cod is 'código de identificação do item da compra.';
-comment on column compra_item.coi_numcompra is 'número da compra a qual o item pertence.';
-comment on column compra_item.coi_produto is 'código do produto na compra.';
-comment on column compra_item.coi_qtd_item is 'quantidade do item na compra.';
-comment on column compra_item.coi_unitario is 'valor unitário do item na compra.';
-comment on column compra_item.coi_total_item is 'valor total do item.';
+alter table compra_item add constraint coi_compraproduto_uk unique (coi_numcompra, coi_produto)
+
+comment on table compra_item is 'Itens(produtos) da compra.';
+comment on column compra_item.coi_cod is 'Código de identificação do item da compra.';
+comment on column compra_item.coi_numcompra is 'Número da compra a qual o item pertence.';
+comment on column compra_item.coi_produto is 'Código do produto na compra.';
+comment on column compra_item.coi_qtd_item is 'Quantidade do item na compra.';
+comment on column compra_item.coi_unitario is 'Valor unitário do item na compra.';
+comment on column compra_item.coi_total_item is 'Valor total do item.';
 
