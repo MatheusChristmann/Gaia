@@ -348,3 +348,50 @@ comment on column compra_item.coi_qtd_item is 'Quantidade do item na compra.';
 comment on column compra_item.coi_unitario is 'Valor unitário do item na compra.';
 comment on column compra_item.coi_total_item is 'Valor total do item.';
 
+-----------------------------------------------------------------------------------------------------------------------------
+
+/*AUDITORIA - NECESSÁRIO AJUSTES*/
+
+
+create table auditoria(
+    aud_cod serial constraint auditoria_pk primary key,
+    aud_tabela varchar(50) not null,
+    aud_usuario varchar(50) not null,
+    aud_data timestamp not null,
+    aud_operacao varchar(1) not null, -- I – inclusão, E – exclusão, A - alteração
+    aud_regnew text,
+    aud_regold text
+);
+
+
+-- Função de Auditoria
+create or replace function func_auditoria() returns trigger as
+$body$
+begin
+ 	if (tg_op = 'delete') then
+ 		insert into auditoria(tabela, usuario, data, operacaob,oldreg)
+ 			select tg_relname, user, current_timestamp, 'E', old::text;
+		return old;
+ 	elsif (tg_op = 'update') then
+ 		insert into auditoria(tabela, usuario, data, operacao, newreg, oldreg) 
+			select tg_relname, user, current_timestamp, 'A', new::text, old::text;
+ 		return new;
+ 	elsif (tg_op = 'insert') then
+ 		insert into auditoria(tabela, usuario, data, operacao, newreg) 
+			select tg_relname, user, current_timestamp, 'I', new::text;
+ 		return new;
+ 	end if;
+	return null;
+end;
+$body$
+language plpgsql; 
+
+
+-- Exemplo de trigger que terá que ser criado para cada tabela do Banco
+create trigger /*nome_trigger*/ 
+after insert or update or delete on /*nome_tabela*/ 
+for each row execute procedure /*nome_function ou nome_procedure*/;
+
+
+
+
