@@ -36,7 +36,7 @@ create table cep(
 );
  
 comment on table cep is 'Cadastro de CEP''s.';
-comment on column cep.cep_numero is 'CEP.';
+comment on column cep.cep_numero is 'CEP (Armazenado sem máscara).';
 comment on column cep.cep_municipio is 'Código do município do CEP.';
 
 -----------------------------------------------------------------------------------------------------------------------------
@@ -105,7 +105,7 @@ comment on column produto.pro_descricao is 'Descrição do produto.';
 comment on column produto.pro_preco is 'Preço de venda do produto.';
 comment on column produto.pro_quantidade is 'Quantidade em estoque do produto.';
 comment on column produto.pro_estoque_minimo is 'Quantidade de estoque mínimo para o produto.';
-comment on column produto.pro_status is 'campo que indica se o cadastro do produto está inativo ou ativo (I = inativo, A = ativo).';
+comment on column produto.pro_status is 'Campo que indica se o cadastro do produto está inativo ou ativo (I = inativo, A = ativo).';
 comment on column produto.pro_principioativo is 'Princípio ativo do produto.';
 comment on column produto.pro_tipmedicamento is 'Tipo de medicamento do produto.';
 comment on column produto.pro_tiptarja is 'Tipo de tarja do produto.';
@@ -142,7 +142,7 @@ create table endereco(
 	end_email varchar(40)	
 );
 
-alter table compra_item add constraint end_pessoatipendereco_uk unique (end_tipendereco, end_pessoa)
+alter table endereco add constraint end_pessoatipendereco_uk unique (end_pessoa, end_tipendereco)
  
 comment on table endereco is 'Cadastro de endereços.';
 comment on column endereco.end_cod is 'Código do endereço.';
@@ -152,8 +152,8 @@ comment on column endereco.end_cep is 'Cep do endereço.';
 comment on column endereco.end_bairro is 'Nome do bairro do endereço.';
 comment on column endereco.end_rua is 'Nome da rua do endereço.';
 comment on column endereco.end_numresid is 'Número da residência do endereço.';
-comment on column endereco.end_numtelefone is 'Número de telefone fixo do endereço.';
-comment on column endereco.end_numcelular is 'Número de celular do endereço.';
+comment on column endereco.end_numtelefone is 'Número de telefone fixo do endereço (Armazenado sem máscara).';
+comment on column endereco.end_numcelular is 'Número de celular do endereço (Armazenado sem máscara e espaço suficiente para o DDI e o DDD).';
 comment on column endereco.end_email is 'Endereço de email.';
 
 -----------------------------------------------------------------------------------------------------------------------------
@@ -162,11 +162,11 @@ create table pesfisica(
 	fis_pessoa integer constraint pesfisica_pk primary key,
 	fis_cpf char(11) constraint fis_cpf_uk unique not null,
 	fis_datanascimento date not null,
-	fis_genero char(1) constraint fis_genero_ck check (fis_genero in ('M', 'F', 'O')), -- Pode ser nulo, ou seja, não informou...
+	fis_genero char(1) constraint fis_genero_ck check (fis_genero in ('M', 'F', 'O')),
 	fis_funcionario char(1) constraint fis_funcionario_ck check (fis_funcionario in ('S', 'N')) not null
 );
  
-alter table pesfisica add constraint pesfisica_pessoa_fk foreign key (fis_pessoa) references pessoa(pes_cod);
+alter table pesfisica add constraint fis_pessoa_fk foreign key (fis_pessoa) references pessoa(pes_cod);
 
 comment on table pesfisica is 'Cadastro de informações de pessoas físicas.';
 comment on column pesfisica.fis_pessoa is 'Código da pessoa física.';
@@ -185,10 +185,10 @@ create table pesjuridica(
  
 alter table pesjuridica add constraint jur_pessoa_fk foreign key (jur_pessoa) references pessoa(pes_cod);
  
-comment on table pesjuridica is 'cadastro de informações de pessoas jurídicas.';
-comment on column pesjuridica.jur_pessoa is 'código da pessoa jurídica.';
-comment on column pesjuridica.jur_cnpj is 'cnpj  da pessoa jurídica.';
-comment on column pesjuridica.jur_datafundacao is 'data de fundação da empresa.';
+comment on table pesjuridica is 'Cadastro de informações de pessoas jurídicas.';
+comment on column pesjuridica.jur_pessoa is 'Código da pessoa jurídica.';
+comment on column pesjuridica.jur_cnpj is 'CNPJ  da pessoa jurídica.';
+comment on column pesjuridica.jur_datafundacao is 'Data de fundação da empresa.';
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -212,11 +212,11 @@ create table funcionario(
 	fun_cargo integer constraint fun_cargo_fk references cargo(car_cod) not null
 );
  
-comment on table funcionario is 'cadastro de funcionários.';
-comment on column funcionario.fun_pessoa is 'código do funcionário.';
-comment on column funcionario.fun_admissao is 'data de admissão do funcionário.';
-comment on column funcionario.fun_demissao is 'data de demissão do funcionário.';
-comment on column funcionario.fun_cargo is 'código do cargo vinculado ao funcionário.';
+comment on table funcionario is 'Cadastro de funcionários.';
+comment on column funcionario.fun_pessoa is 'Código do funcionário.';
+comment on column funcionario.fun_admissao is 'Data de admissão do funcionário.';
+comment on column funcionario.fun_demissao is 'Data de demissão do funcionário.';
+comment on column funcionario.fun_cargo is 'Código do cargo vinculado ao funcionário.';
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -229,7 +229,7 @@ create table notificacao_compra(
 	noc_concluido char(1) constraint noc_concluido_ck check (noc_concluido in ('A', 'C')) not null
 );
  
-comment on table notificacao_compra is 'Totificações de compra.';
+comment on table notificacao_compra is 'Notificações de compra.';
 comment on column notificacao_compra.noc_cod is 'Código da notificação de compra.';
 comment on column notificacao_compra.noc_funcionario is 'Funcionário que fez a notificação de compra.';
 comment on column notificacao_compra.noc_produto is 'Produto que está sendo notificado a necessidade de compra.';
@@ -247,12 +247,12 @@ create table produto_movimento(
 	mov_qtd_produto integer not null
 );
  
-comment on table produto_movimento is 'movimentações (entrada e saída) de produtos. utilizada no controle de estoque.';
-comment on column produto_movimento.mov_cod is 'código de identificação da movimentação de um produto.';
-comment on column produto_movimento.mov_data is 'data em que foi realizada a movimentação(entrada/saída) de um produto.';
-comment on column produto_movimento.mov_funcionario is 'código do funcionário envolvido na movimentação do produto.';
-comment on column produto_movimento.mov_produto is 'código do produto que sofreu movimentação.';
-comment on column produto_movimento.mov_qtd_produto is 'quantidade do produto que sofreu movimentação.';
+comment on table produto_movimento is 'Movimentações (entrada e saída) de produtos. utilizada no controle de estoque.';
+comment on column produto_movimento.mov_cod is 'Código de identificação da movimentação de um produto.';
+comment on column produto_movimento.mov_data is 'Data em que foi realizada a movimentação(entrada/saída) de um produto.';
+comment on column produto_movimento.mov_funcionario is 'Código do funcionário envolvido na movimentação do produto.';
+comment on column produto_movimento.mov_produto is 'Código do produto que sofreu movimentação.';
+comment on column produto_movimento.mov_qtd_produto is 'Quantidade do produto que sofreu movimentação.';
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -350,18 +350,29 @@ comment on column compra_item.coi_total_item is 'Valor total do item.';
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-/*AUDITORIA - NECESSÁRIO AJUSTES*/
-
-
 create table auditoria(
     aud_cod serial constraint auditoria_pk primary key,
     aud_tabela varchar(50) not null,
     aud_usuario varchar(50) not null,
     aud_data timestamp not null,
-    aud_operacao varchar(1) not null, -- I – inclusão, E – exclusão, A - alteração
+    aud_operacao char(1) not null, 
     aud_regnew text,
     aud_regold text
 );
+
+comment on table auditoria is 'Tabela de auditoria que armazena os logs de insert, delete e update realizados em qualquer uma das tabelas do banco de dados gaiadb.';
+comment on column auditoria.aud_cod is 'Código da auditoria.';
+comment on column auditoria.aud_tabela is 'Nome da tabela que sofreu inclusão, exclusão ou alteração.';
+comment on column auditoria.aud_usuario is 'Nome do usuário que realizou a inclusão, exclusão ou alteração.';
+comment on column auditoria.aud_data is 'Data e hora em que foi realizada a inclusão, exclusão ou alteração.';
+comment on column auditoria.aud_operacao is 'Operação que foi realizada na tabela (I = Inclusão, E = Exclusão, A = Alteração).';
+comment on column auditoria.aud_regnew is 'Registro novo na tabela.';
+comment on column auditoria.aud_regold is 'Registro antigo na tabela.';
+
+
+
+
+
 
 
 -- Função de Auditoria
