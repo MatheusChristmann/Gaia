@@ -1,6 +1,6 @@
 
 /*   CRIAÇÃO DA BASE DE DADOS DO SISTEMA GAIA   */
-create database gaiadb;
+ create database gaiadb;
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -142,7 +142,7 @@ create table endereco(
 	end_email varchar(40)	
 );
 
-alter table endereco add constraint end_pessoatipendereco_uk unique (end_pessoa, end_tipendereco)
+alter table endereco add constraint end_pessoatipendereco_uk unique (end_pessoa, end_tipendereco);
  
 comment on table endereco is 'Cadastro de endereços.';
 comment on column endereco.end_cod is 'Código do endereço.';
@@ -297,7 +297,7 @@ create table venda_item(
 	vei_total_item numeric(10,2) not null	
 );
 
-alter table venda_item add constraint vei_vendaproduto_uk unique (vei_numvenda, vei_produto)
+alter table venda_item add constraint vei_vendaproduto_uk unique (vei_numvenda, vei_produto);
  
 comment on table venda_item is 'Itens(produtos) da venda.';
 comment on column venda_item.vei_cod is 'Código de identificação do item da venda.';
@@ -338,7 +338,7 @@ create table compra_item(
 	coi_total_item numeric(10,2) not null	
 );
  
-alter table compra_item add constraint coi_compraproduto_uk unique (coi_numcompra, coi_produto)
+alter table compra_item add constraint coi_compraproduto_uk unique (coi_numcompra, coi_produto);
 
 comment on table compra_item is 'Itens(produtos) da compra.';
 comment on column compra_item.coi_cod is 'Código de identificação do item da compra.';
@@ -368,41 +368,3 @@ comment on column auditoria.aud_data is 'Data e hora em que foi realizada a incl
 comment on column auditoria.aud_operacao is 'Operação que foi realizada na tabela (I = Inclusão, E = Exclusão, A = Alteração).';
 comment on column auditoria.aud_regnew is 'Registro novo na tabela.';
 comment on column auditoria.aud_regold is 'Registro antigo na tabela.';
-
-
-
-
-
-
-
--- Função de Auditoria
-create or replace function func_auditoria() returns trigger as
-$body$
-begin
- 	if (tg_op = 'delete') then
- 		insert into auditoria(tabela, usuario, data, operacaob,oldreg)
- 			select tg_relname, user, current_timestamp, 'E', old::text;
-		return old;
- 	elsif (tg_op = 'update') then
- 		insert into auditoria(tabela, usuario, data, operacao, newreg, oldreg) 
-			select tg_relname, user, current_timestamp, 'A', new::text, old::text;
- 		return new;
- 	elsif (tg_op = 'insert') then
- 		insert into auditoria(tabela, usuario, data, operacao, newreg) 
-			select tg_relname, user, current_timestamp, 'I', new::text;
- 		return new;
- 	end if;
-	return null;
-end;
-$body$
-language plpgsql; 
-
-
--- Exemplo de trigger que terá que ser criado para cada tabela do Banco
-create trigger /*nome_trigger*/ 
-after insert or update or delete on /*nome_tabela*/ 
-for each row execute procedure /*nome_function ou nome_procedure*/;
-
-
-
-
