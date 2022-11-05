@@ -1,6 +1,6 @@
 
 /*   CRIAÇÃO DA BASE DE DADOS DO SISTEMA GAIA   */
- create database gaiadb;
+create database gaiadb;
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -242,7 +242,7 @@ comment on column notificacao_compra.noc_concluido is 'Campo que indica de a not
 create table produto_movimento(
 	mov_cod serial constraint produto_movimento_pk primary key,
 	mov_data timestamp not null,
-	mov_funcionario integer constraint mov_funcionario_fk references funcionario(fun_pessoa) not null,
+	mov_pessoa integer constraint mov_pessoa_fk references pessoa(pes_cod) not null,
 	mov_produto integer constraint mov_produto_fk references produto(pro_cod) not null,
 	mov_qtd_produto integer not null
 );
@@ -250,9 +250,9 @@ create table produto_movimento(
 comment on table produto_movimento is 'Movimentações (entrada e saída) de produtos. utilizada no controle de estoque.';
 comment on column produto_movimento.mov_cod is 'Código de identificação da movimentação de um produto.';
 comment on column produto_movimento.mov_data is 'Data em que foi realizada a movimentação(entrada/saída) de um produto.';
-comment on column produto_movimento.mov_funcionario is 'Código do funcionário envolvido na movimentação do produto.';
+comment on column produto_movimento.mov_pessoa is 'Código da pessoa envolvida na movimentação do produto.';
 comment on column produto_movimento.mov_produto is 'Código do produto que sofreu movimentação.';
-comment on column produto_movimento.mov_qtd_produto is 'Quantidade do produto que sofreu movimentação.';
+comment on column produto_movimento.mov_qtd_produto is 'Código do produto que sofreu movimentação. (Um valor maior que 0 representa uma "entrada" e um valor menor que 0 representa uma "saída").';
 
 -----------------------------------------------------------------------------------------------------------------------------
 

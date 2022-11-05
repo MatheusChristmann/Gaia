@@ -1,4 +1,4 @@
-/* ÍNDICES DO BANCO DE DADOS GAIADB */
+/* CRIAÇÃO DOS ÍNDICES DO BANCO DE DADOS GAIADB */
 
 
 /*
@@ -43,8 +43,8 @@ on notificacao_compra(noc_funcionario);
 create index noc_produto_sk
 on notificacao_compra(noc_produto);
 
-create index mov_funcionario_sk
-on produto_movimento(mov_funcionario);
+create index mov_pessoa_sk
+on produto_movimento(mov_pessoa);
 
 create index mov_produto_sk
 on produto_movimento(mov_produto);
