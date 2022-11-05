@@ -1,0 +1,76 @@
+/*   INSERÇÕES DO BANCO DE DADOS GAIADB   */
+
+insert into estado(est_nome) values
+('Rio Grande do Sul'),
+('Santa Catarina'),
+('Paraná');
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into municipio(mun_nome, mun_estado) values
+('Porto Alegre', 1),
+('São Miguel do Oeste', 2),
+('Chapecó', 2),
+('Curitiba', 3);
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into cep(cep_numero, cep_municipio) values
+('91740011', 1),
+('90843454', 1),
+('89900000', 2),
+('89809035', 3),
+('89805280', 3),
+('81830190', 4);
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into tipo_endereco(ten_descricao) values
+('Residencial Fixo'),
+('Residencial Temporário'),
+('Comercial'),
+('Cobrança');
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into tipo_tarja(tit_descricao) values
+('Sem Tarja'),
+('Amarela'),
+('Vermelha'),
+('Preta');
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into tipo_medicamento(tim_descricao) values
+('Referência'),
+('Genérico'),
+('Similar');
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into principio_ativo(pra_descricao) values
+('Aripiprazol'),
+('Minoxidil'),
+('Dienogeste'), 
+('Nitazoxanida'),
+('Pregabalina');
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into tipo_pagamento(pag_descricao) values
+('Dinheiro'),
+('Cheque'),
+('Cartão de Crédito'),
+('Cartão de Débito'),
+('PIX'),
+('Boleto Bancário');
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into cargo(car_descricao, car_salario) values
+('Gerente', 5000.00),
+('Atendente', 2000.00),
+('Comprador', 2300.00);
+
+-----------------------------------------------------------------------------------------------------------------------------
+
