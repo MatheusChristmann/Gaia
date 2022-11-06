@@ -8,19 +8,19 @@ Precondições: Cliente a qual vai ser realizado a venda estar devidamente cadas
 
 Fluxo Normal:
 1 - Atendente realiza Login no sistema.
-2 - Atendente efetua o preenchimento de dados para realizar a venda.
-3 - Atendente verifica a situação do cliente (Está Ativo).
+2 - Atendente verifica a situação do cliente (Está Ativo).
+3 - Atendente efetua o preenchimento de dados para realizar a venda.
 4 - Atendente analisa o estoque dos produtos requeridos pelo cliente para venda (Possui estoque).
 5 - Atendente conclui a venda com sucesso.
 
 Fluxo Alternativo: Cliente está com status inativo.
-3a - Atendente verifica que o status do cliente está inativo.
-3b - Atendente altera o status (Inativo para Ativo) no cadastro do cliente.
+2a - Atendente verifica que o status do cliente está inativo.
+2b - Atendente altera o status (Inativo para Ativo) no cadastro do cliente.
 Retoma o passo 3.
 
 Fluxo Alternativo: Atendente escaneia receita para realizar a venda.
-2a - Cliente apresenta receita médica para a compra de produtos.
-2b - Atendente escaneia a receita médica e anexa no sistema.
+3a - Cliente apresenta receita médica para a compra de produtos.
+3b - Atendente escaneia a receita médica e anexa no sistema.
 Retoma o passo 2.
 
 Fluxo Alternativo: Produto a ser vendido sem estoque.
