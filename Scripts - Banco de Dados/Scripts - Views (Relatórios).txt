@@ -13,7 +13,7 @@ select
 	produto.pro_nome,
 	produto.pro_tipmedicamento 
 from produto
-order by produto.pro_nome asc
+order by produto.pro_nome asc;
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -28,7 +28,7 @@ from produto
 inner join produto_movimento on (produto_movimento.mov_produto = produto.pro_cod and produto_movimento.mov_qtd_produto > 0)
 inner join pessoa on (pessoa.pes_cod = produto_movimento.mov_pessoa)
 where produto.pro_quantidade > 10
-order by pessoa.pes_nome desc
+order by pessoa.pes_nome desc;
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -47,7 +47,7 @@ inner join venda_item on (venda_item.vei_produto  = produto.pro_cod)
 inner join venda on (venda.ven_numero  = venda_item.vei_numvenda)
 where extract(year from venda.ven_data) in (2020,2021)
 group by 1, 2, 3
-order by "Qtd Total Vendida" desc
+order by "Qtd Total Vendida" desc;
 
 -----------------------------------------------------------------------------------------------------------------------------
 

@@ -1,5 +1,7 @@
 /*   INSERÇÕES DO BANCO DE DADOS GAIADB   */
 
+/*As inserções abaixo se tratam de valores apenas para testar a base*/
+
 insert into estado(est_nome) values
 ('Rio Grande do Sul'),
 ('Santa Catarina'),
@@ -73,4 +75,52 @@ insert into cargo(car_descricao, car_salario) values
 ('Comprador', 2300.00);
 
 -----------------------------------------------------------------------------------------------------------------------------
+
+insert into pessoa(pes_nome, pes_tipo,pes_status, pes_datacadastro) values
+('Cliente 1', 'F', 'A', current_date),
+('Cliente 2', 'F', 'A', current_date),
+('Fornecedor 1', 'J', 'A', current_date),
+('Fornecedor 2', 'J', 'A', current_date),
+('Cliente - Funcionario 1', 'F', 'A', current_date),
+('Cliente - Funcionario 2', 'F', 'A', current_date);
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into pesfisica values
+(1, '10166513961', '2020-11-01', 'M', 'N'),
+(2, '10266523962', '2020-11-02', 'F', 'N'),
+(5, '10566553965', '2020-11-05', 'M', 'S'),
+(6, '10666563966', '2020-11-06', 'F', 'S');
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into pesjuridica values
+(3, '12345678901234', '2022-11-03'),
+(4, '98765432109876', '2022-11-04');
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into funcionario values
+(5, '2020-11-06', null, 2),
+(6, '2020-11-06', null, 3);
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into produto(pro_nome, pro_descricao, pro_preco, pro_quantidade, pro_estoque_minimo, pro_status, pro_principioativo, pro_tipmedicamento, pro_tiptarja) values
+('Produto 1', null, 10.0, 0, null, 'A', 1, 1, 1),
+('Produto 2', null, 20.0, 0, null, 'A', 2, 2, 2),
+('Produto 3', null, 30.0, 0, null, 'A', 3, 3, 3);
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into venda(ven_data, ven_pessoa, ven_pagamento, ven_funcionario, ven_total, ven_receita) values
+('2020-11-06', 1, 1, 5, 0, null);
+
+
+insert into venda_item(vei_numvenda, vei_produto, vei_qtd_item, vei_unitario, vei_total_item) values
+(1, 1, 10, 1, 10),
+(1, 2, 20, 2, 40),
+(1, 3, 30, 3, 90);
+
+
 

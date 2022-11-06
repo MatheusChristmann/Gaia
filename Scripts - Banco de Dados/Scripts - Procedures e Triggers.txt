@@ -1,0 +1,130 @@
+/* PROCEDURES / FUNCTIONS DO GAIADB */
+
+
+-- Função de Auditoria
+create or replace function func_auditoria() returns trigger as
+$body$
+begin
+ 	if (tg_op = 'DELETE') then
+ 		insert into auditoria(aud_tabela, aud_usuario, aud_data, aud_operacao, aud_regold)
+ 			select tg_relname, user, current_timestamp, 'E', old::text;
+		return old;
+ 	elsif (tg_op = 'UPDATE') then
+ 		insert into auditoria(aud_tabela, aud_usuario, aud_data, aud_operacao, aud_regnew, aud_regold) 
+			select tg_relname, user, current_timestamp, 'A', new::text, old::text;
+ 		return new;
+ 	elsif (tg_op = 'INSERT') then
+ 		insert into auditoria(aud_tabela, aud_usuario, aud_data, aud_operacao, aud_regnew) 
+			select tg_relname, user, current_timestamp, 'I', new::text;
+ 		return new;
+ 	end if;
+	return null;
+end;
+$body$
+language plpgsql; 
+
+
+/* TRIGGERS DE AUTIORIA */
+create trigger estado_audit_trig
+after insert or update or delete on estado
+for each row execute procedure func_auditoria();
+
+
+create trigger mumicipio_audit_trig
+after insert or update or delete on municipio
+for each row execute procedure func_auditoria();
+
+
+create trigger cep_audit_trigger
+after insert or update or delete on cep
+for each row execute procedure func_auditoria();
+
+
+create trigger principioativo_audit_trig
+after insert or update or delete on principio_ativo
+for each row execute procedure func_auditoria();
+
+
+create trigger produto_audit_trig
+after insert or update or delete on produto
+for each row execute procedure func_auditoria();
+
+
+create trigger tipomedicamento_audit_trig
+after insert or update or delete on tipo_medicamento
+for each row execute procedure func_auditoria();
+
+
+create trigger tipotarja_audit_trig
+after insert or update or delete on tipo_tarja
+for each row execute procedure func_auditoria();
+
+
+create trigger pessoa_audit_trig
+after insert or update or delete on pessoa
+for each row execute procedure func_auditoria();
+
+
+create trigger tipoendereco_audit_trig
+after insert or update or delete on tipo_endereco
+for each row execute procedure func_auditoria();
+
+
+create trigger endereco_audit_trig
+after insert or update or delete on endereco
+for each row execute procedure func_auditoria();
+
+
+create trigger pesfisica_audit_trig
+after insert or update or delete on pesfisica
+for each row execute procedure func_auditoria();
+
+
+create trigger pesjuridica_audit_trig
+after insert or update or delete on pesjuridica
+for each row execute procedure func_auditoria();
+
+
+create trigger cargo_audit_trig
+after insert or update or delete on cargo
+for each row execute procedure func_auditoria();
+
+
+create trigger funcionario_audit_trig
+after insert or update or delete on funcionario
+for each row execute procedure func_auditoria();
+
+
+create trigger notificacaocompra_audit_trig
+after insert or update or delete on notificacao_compra
+for each row execute procedure func_auditoria();
+
+
+create trigger venda_audit_trig
+after insert or update or delete on venda
+for each row execute procedure func_auditoria();
+
+
+create trigger tipopagamento_audit_trig
+after insert or update or delete on tipo_pagamento
+for each row execute procedure func_auditoria();
+
+
+create trigger vendaitem_audit_trig
+after insert or update or delete on venda_item
+for each row execute procedure func_auditoria();
+
+
+create trigger compra_audit_trig
+after insert or update or delete on compra
+for each row execute procedure func_auditoria();
+
+
+create trigger compra_item_audit_trig
+after insert or update or delete on compra_item
+for each row execute procedure func_auditoria();
+
+
+create trigger produtomovimento_audit_trig
+after update or delete on produto_movimento
+for each row execute procedure func_auditoria();
