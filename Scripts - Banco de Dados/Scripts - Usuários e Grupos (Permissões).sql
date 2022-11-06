@@ -1,4 +1,13 @@
-/*   USUÁRIOS E GRUPOS DO BANCO DE DADOS GAIADB   */
+/*   USUÁRIOS, GRUPOS E PERMISSÕES DO BANCO DE DADOS GAIADB   */
+
+
+/* - O Dono da base e super usuário será o gaiadba.
+
+- Os usuários otilia, roberson e franciele terão permissões de gerente
+para realizarem as avaliações do Banco de Dados caso necessário.
+
+- O usuário matheus será atendente, o usuário michell será comprador e 
+o usuário jean será gerente. */
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -24,28 +33,81 @@ create group gerente;
 
 /* PERMISSÕES PARA GRUPO GERENTE */
 grant select, insert, update 
-on funcionario to gerente
+on funcionario to gerente;
 
 grant select, insert, update, delete 
-on cargo to gerente
+on cargo to gerente;
 
-grant select 
-on tipo_pagamento to gerente
+grant select on relatorio04_vw
+to gerente;
 
 
 /* PERMISSÕES PARA O GRUPO ATENDENTE */
 
+grant select, insert, update
+on pessoa, pesfisica, pesjuridica to atendente;
+
+grant select, insert, update, delete
+on endereco to atendente;
+
+grant select on estado, municipio, cep
+to atendente;
+
+grant select, insert on venda, venda_item
+to atendente;
+
+grant select on produto, tipo_medicamento, tipo_tarja, principio_ativo
+to atendente;
+
+grant select, insert, delete on notificacao_compra
+to atendente;
+
+grant select on relatorio01_vw, relatorio02_vw
+to atendente;
 
 
+/* PERMISSÕES PARA O GRUPO COMPRADOR */
 
+grant select on relatorio01_vw, relatorio02_vw, relatorio03_vw
+to comprador;
 
+grant select, insert, update, delete on principio_ativo
+to comprador;
 
--- Anotações sobre alterações no Caso de Uso
-Adicionar no Caso de Uso:
-Retirar no Caso de Uso:
+grant select, insert, update on produto 
+to comprador;
 
+grant select, insert on compra, compra_item
+to comprador;
 
--- Lista de Tabelas:
+grant select on pessoa 
+to comprador;
+
+grant select, insert, update on notificacao_compra
+to comprador;
+
+grant select on tipo_pagamento
+to comprador;
+
+grant select on tipo_medicamento, tipo_tarja
+to comprador;
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+/* ATRIBUIÇÃO DE GRUPOS E PERMISSÕES PARA OS USUÁRIOS */
+
+alter database "gaiadb" owner to gaiadba;
+
+grant gerente to otilia, roberson, franciele, jean;
+
+grant atendente to matheus;
+
+grant comprador to michell;
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+/*
+ Lista de Tabelas:
 estado,
 municipio,
 cep,
@@ -68,6 +130,6 @@ venda_item,
 compra,
 compra_item,
 auditoria,
-
+*/
 
 

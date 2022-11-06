@@ -1,6 +1,7 @@
 
 /*   CRIAÇÃO DA BASE DE DADOS DO SISTEMA GAIA   */
 create database gaiadb;
+comment on database "gaiadb" is 'Banco de Dados do sistema Gaia';
 
 -----------------------------------------------------------------------------------------------------------------------------
 
