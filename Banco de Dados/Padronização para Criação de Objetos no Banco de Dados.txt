@@ -1,0 +1,5 @@
+Padrões para criação:
+Functions - nomedafunção_func
+Procedures - nomedaprocedure_proc
+Triggers - nomedatabela_oqueatriggerfaz_trig
+Views - nomedaview_vw
