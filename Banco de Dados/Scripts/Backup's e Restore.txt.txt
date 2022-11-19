@@ -1,0 +1,41 @@
+/* POLÍTICAS DE BACKUP E RESTORE 
+
+Responsável pela Política: Matheus Felipe Christmann
+
+Aprovado por: Gerente da Farmácia
+
+Localização do Armazenamento:
+
+Data da Aprovação: Mesma data de Implantação do Sistema
+
+Revisão do Backup: A presente política de backup e restore está sujeita a revisões e possíveis atualizações em um período de a cada 2 meses.
+
+A Política de Backup e Restauração de Dados Digitais objetiva instituir diretrizes, responsabilidades e competências que visam à segurança, 
+proteção e disponibilidade dos dados digitais custodiados pela(s) [unidades de tecnologia da informação (TI)] e formalmente definidos como 
+de necessária salvaguarda na [Organização], para se manter a continuidade do negócio. No sentido de assegurar sua missão é fundamental estabelecer 
+mecanismos que permitam a guarda dos dados e sua eventual restauração em casos de indisponibilidades ou perdas por erro humano, ataques, catástrofes 
+naturais ou outras ameaças. O presente documento apresenta a Política de Backup e Restauração de Dados Digitais, onde se estabelece o modo e a 
+periodicidade de cópia dos dados armazenados pelos sistemas computacionais.
+
+
+Comentar sobre situação de restore, testes e revisões de mídia
+
+
+
+
+
+
+Tipos de backups:
+Lógico - Scripts
+Físico - Dados
+Logs - Mais rápido para recuperar
+
+
+
+
+
+
+
+
+
+*/
