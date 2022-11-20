@@ -135,7 +135,21 @@ insert into venda_item(vei_numvenda, vei_produto, vei_qtd_item, vei_unitario, ve
 (2, 3, 10, 3.00, 30.00);
 
 -----------------------------------------------------------------------------------------------------------------------------
-/*insert into compra(com_data, com_pessoa, com_pagamento, com_funcionario) values
-(current_timestamp, )
 
-*/
+insert into compra(com_data, com_pessoa, com_pagamento, com_funcionario) values
+(current_timestamp, 3, 2, 5),
+(current_timestamp, 4, 4, 6);
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into compra_item(coi_numcompra, coi_produto, coi_qtd_item, coi_unitario, coi_total_item) values
+(2, 1, 1, 10.00, 10.00),
+(2, 2, 1, 20.00, 20.00),
+(2, 3, 1, 30.00, 30.00),
+(3, 1, 2, 10.00, 10.00),
+(3, 2, 2, 20.00, 40.00),
+(3, 3, 2, 30.00, 60.00);
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+

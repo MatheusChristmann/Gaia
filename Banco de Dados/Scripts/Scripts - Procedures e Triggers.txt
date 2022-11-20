@@ -1,7 +1,8 @@
-/* PROCEDURES / FUNCTIONS DO GAIADB */
+/* PROCEDURES/FUNCTIONS E TRIGGERS */
 
+---------------------------------------------------------------------------------------------------------------------------
 
--- Função de Auditoria
+/* FUNCTION PARA AUDITORIA */
 create or replace function func_auditoria() returns trigger as
 $body$
 begin
@@ -119,7 +120,109 @@ create trigger compra_item_audit_trig
 after insert or update or delete on compra_item
 for each row execute procedure func_auditoria();
 
+---------------------------------------------------------------------------------------------------------------------------
 
-create trigger produtomovimento_audit_trig
-after update or delete on produto_movimento
-for each row execute procedure func_auditoria();
+/* FUNCTION PARA CALCULAR O TOTAL DE UMA VENDA (SOMATÓRIO DOS ITENS DA VENDA) */
+create or replace function func_calc_totalvenda(numvenda integer) returns numeric as 
+$body$
+declare
+	totalVenda numeric;
+begin 
+	select sum(venda_item.vei_total_item) into totalVenda from venda_item where vei_numvenda = numvenda;
+	return totalVenda;
+end
+$body$
+language plpgsql;
+
+---------------------------------------------------------------------------------------------------------------------------
+
+/* FUNCTION PARA CALCULAR O TOTAL DE UMA COMPRA (SOMATÓRIO DOS ITENS DA COMPRA) */
+create or replace function func_calc_totalcompra(numcompra integer) returns numeric as 
+$body$
+declare
+	totalCompra numeric;
+begin 
+	select sum(compra_item.coi_total_item) into totalCompra from compra_item where coi_numcompra = numcompra;
+	return totalCompra;
+end
+$body$
+language plpgsql;
+
+---------------------------------------------------------------------------------------------------------------------------
+
+/* FUNCTION PARA INSERIR REGISTROS NA TABELA DE PRODUTO_MOVIMENTO - (VENDA) */
+create or replace function func_movestoque_venda() returns trigger as
+$body$
+declare
+	pessoa integer;
+begin	
+	if (tg_op = 'INSERT') then
+		select venda.ven_pessoa into pessoa from venda inner join venda_item on (venda.ven_numero = new.vei_numvenda); -- Busca a Pessoa envolvida na Movimentação
+	
+ 		insert into produto_movimento(mov_data, mov_pessoa, mov_produto, mov_qtd_produto) -- Insere o registro na tabela
+ 			select current_timestamp, pessoa, new.vei_produto, -new.vei_qtd_item; --Lança um valor negativo na tabela pois é uma saída de estoque
+ 			
+		return new;		
+	elsif (tg_op = 'DELETE') then
+		select venda.ven_pessoa into pessoa from venda inner join venda_item on (venda.ven_numero = old.vei_numvenda); -- Busca a Pessoa envolvida na Movimentação
+	
+ 		insert into produto_movimento(mov_data, mov_pessoa, mov_produto, mov_qtd_produto) -- Insere o registro na tabela
+ 			select current_timestamp, pessoa, old.vei_produto, old.vei_qtd_item;  --Lança um valor positivo na tabela pois o usuário exclui o item, ou seja, volta o estoque anterior
+ 		
+		return old;
+ 	end if;
+return null;
+end
+$body$
+language plpgsql;
+
+
+create trigger mov_estoque_venda_trig
+after insert or delete on venda_item
+for each row execute procedure func_movestoque_venda();
+
+---------------------------------------------------------------------------------------------------------------------------
+
+/* FUNCTION PARA INSERIR REGISTROS NA TABELA DE PRODUTO_MOVIMENTO - (COMPRA) */
+create or replace function func_movestoque_compra() returns trigger as
+$body$
+declare
+	pessoa integer;
+begin	
+	if (tg_op = 'INSERT') then
+		select compra.com_pessoa into pessoa from compra inner join compra_item on (compra.com_numero = new.coi_numcompra); -- Busca a Pessoa envolvida na Movimentação
+	
+ 		insert into produto_movimento(mov_data, mov_pessoa, mov_produto, mov_qtd_produto) -- Insere o registro na tabela
+ 			select current_timestamp, pessoa, new.coi_produto, new.coi_qtd_item; --Lança um valor positivo na tabela pois é uma entrada de estoque
+ 		
+		return new;		
+	elsif (tg_op = 'DELETE') then
+		select compra.com_pessoa into pessoa from compra inner join compra_item on (compra.com_numero = old.coi_numcompra); -- Busca a Pessoa envolvida na Movimentação
+	
+ 		insert into produto_movimento(mov_data, mov_pessoa, mov_produto, mov_qtd_produto) -- Insere o registro na tabela
+ 			select current_timestamp, pessoa, old.coi_produto, -old.coi_qtd_item; --Lança um valor negativo na tabela pois o usuário exclui o item, ou seja, volta o estoque anterior
+ 		
+		return old;
+ 	end if;
+return null;
+end
+$body$
+language plpgsql;
+
+create trigger mov_estoque_compra_trig
+after insert or delete on compra_item
+for each row execute procedure func_movestoque_compra();
+
+---------------------------------------------------------------------------------------------------------------------------
+
+/* FUNCTION PARA CALCULAR O ESTOQUE DO PRODUTO */
+create or replace function func_calc_estoqueproduto(cod_produto integer) returns integer as
+$body$
+declare
+	totalEstoque integer;
+begin 
+	select sum(mov_qtd_produto) into totalEstoque from produto_movimento where mov_produto = cod_produto group by mov_produto  	
+	return totalEstoque;
+end
+$body$
+language plpgsql;
