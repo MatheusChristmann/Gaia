@@ -35,11 +35,6 @@ after insert or update or delete on municipio
 for each row execute procedure func_auditoria();
 
 
-create trigger cep_audit_trigger
-after insert or update or delete on cep
-for each row execute procedure func_auditoria();
-
-
 create trigger principioativo_audit_trig
 after insert or update or delete on principio_ativo
 for each row execute procedure func_auditoria();

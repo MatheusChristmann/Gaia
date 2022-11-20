@@ -31,17 +31,6 @@ comment on column municipio.mun_estado is 'Código do estado do município.';
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-create table cep(
-	cep_numero char(8) constraint cep_pk primary key,
-	cep_municipio integer constraint cep_municipio_fk references municipio(mun_cod) not null
-);
- 
-comment on table cep is 'Cadastro de CEP''s.';
-comment on column cep.cep_numero is 'CEP (Armazenado sem máscara).';
-comment on column cep.cep_municipio is 'Código do município do CEP.';
-
------------------------------------------------------------------------------------------------------------------------------
-
 create table tipo_endereco(
 	ten_cod serial constraint tipo_endereco_pk primary key,
 	ten_descricao varchar(25) not null
@@ -92,7 +81,6 @@ create table produto(
 	pro_descricao varchar(70),
 	pro_preco numeric(10,2) not null,
 	pro_quantidade integer not null,
-	pro_estoque_minimo integer,	
 	pro_status char(1) constraint pro_status_ck check (pro_status in ('A', 'I')) not null,	
 	pro_principioativo integer constraint pro_principio_ativo_fk references principio_ativo(pra_cod) not null,
 	pro_tipmedicamento integer constraint pro_tipo_medicamento_fk references tipo_medicamento(tim_cod) not null,
@@ -105,7 +93,6 @@ comment on column produto.pro_nome is 'Nome do produto.';
 comment on column produto.pro_descricao is 'Descrição do produto.';
 comment on column produto.pro_preco is 'Preço de venda do produto.';
 comment on column produto.pro_quantidade is 'Quantidade em estoque do produto.';
-comment on column produto.pro_estoque_minimo is 'Quantidade de estoque mínimo para o produto.';
 comment on column produto.pro_status is 'Campo que indica se o cadastro do produto está inativo ou ativo (I = inativo, A = ativo).';
 comment on column produto.pro_principioativo is 'Princípio ativo do produto.';
 comment on column produto.pro_tipmedicamento is 'Tipo de medicamento do produto.';
@@ -134,7 +121,7 @@ create table endereco(
 	end_cod serial constraint endereco_pk primary key,
 	end_tipendereco integer constraint end_tipo_endereco_fk references tipo_endereco(ten_cod) not null,
 	end_pessoa integer constraint end_pessoa_fk references pessoa(pes_cod) not null,
-	end_cep char(8) constraint end_cep_fk references cep(cep_numero) not null,
+	end_municipio integer constraint end_municipio_fk references municipio(mun_cod) not null,
 	end_bairro varchar(40),
 	end_rua varchar(40),
 	end_numresid integer,
@@ -149,7 +136,7 @@ comment on table endereco is 'Cadastro de endereços.';
 comment on column endereco.end_cod is 'Código do endereço.';
 comment on column endereco.end_tipendereco is 'Código do tipo de endereço.';
 comment on column endereco.end_pessoa is 'Código da pessoa detentora do endereço.';
-comment on column endereco.end_cep is 'Cep do endereço.';
+comment on column endereco.end_municipio is 'Município do endereço.';
 comment on column endereco.end_bairro is 'Nome do bairro do endereço.';
 comment on column endereco.end_rua is 'Nome da rua do endereço.';
 comment on column endereco.end_numresid is 'Número da residência do endereço.';
@@ -227,7 +214,7 @@ create table notificacao_compra(
 	noc_produto integer constraint noc_produto_fk references produto(pro_cod) not null,
 	noc_qtd_produto integer not null,
 	noc_data timestamp not null,
-	noc_concluido char(1) constraint noc_concluido_ck check (noc_concluido in ('A', 'C')) not null
+	noc_status char(1) constraint noc_status_ck check (noc_status in ('A', 'C')) not null
 );
  
 comment on table notificacao_compra is 'Notificações de compra.';
@@ -236,7 +223,7 @@ comment on column notificacao_compra.noc_funcionario is 'Funcionário que fez a 
 comment on column notificacao_compra.noc_produto is 'Produto que está sendo notificado a necessidade de compra.';
 comment on column notificacao_compra.noc_qtd_produto is 'Quantidade do produto que está sendo notificado a necessidade de compra.';
 comment on column notificacao_compra.noc_data is 'Data e hora da notificação de compra.';
-comment on column notificacao_compra.noc_concluido is 'Campo que indica de a notificação de compra está em aberto ou concluída (A = Aberto, C = Concluído).';
+comment on column notificacao_compra.noc_status is 'Status da notificação de compra (A = Aberto, C = Concluído).';
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -274,7 +261,6 @@ create table venda(
 	ven_pessoa integer constraint ven_pessoa_fk references pessoa(pes_cod) not null,
 	ven_pagamento integer constraint ven_tipo_pagamento_fk references tipo_pagamento(pag_cod) not null,
 	ven_funcionario integer constraint ven_funcionario_fk references funcionario(fun_pessoa) not null,
-	ven_total numeric(10,2) not null,
 	ven_receita bytea
 );
  
@@ -284,7 +270,6 @@ comment on column venda.ven_data is 'Data e hora da efetivação da venda.';
 comment on column venda.ven_pessoa is 'Código da pessoa a qual está sendo realizada a venda.';
 comment on column venda.ven_pagamento is 'Código do tipo de pagamento da venda.';
 comment on column venda.ven_funcionario is 'Código do funcionário que efetuou a venda.';
-comment on column venda.ven_total is 'Valor total da venda (somatório dos valores totais dos itens).';
 comment on column venda.ven_receita is 'Receita apresentada durante a venda.';
 
 -----------------------------------------------------------------------------------------------------------------------------
@@ -315,8 +300,7 @@ create table compra(
 	com_data timestamp not null,
 	com_pessoa integer constraint com_pessoa_fk references pessoa(pes_cod) not null,
 	com_pagamento integer constraint com_tipo_pagamento_fk references tipo_pagamento(pag_cod) not null,
-	com_funcionario integer constraint com_funcionario_fk references funcionario(fun_pessoa) not null,
-	com_total numeric(10,2) not null
+	com_funcionario integer constraint com_funcionario_fk references funcionario(fun_pessoa) not null
 );
   
  
@@ -326,7 +310,6 @@ comment on column compra.com_data is 'Data e hora da efetivação da compra.';
 comment on column compra.com_pessoa is 'Código da pessoa a qual foi feita a compra.';
 comment on column compra.com_pagamento is 'Código do tipo de pagamento da compra.';
 comment on column compra.com_funcionario is 'Código do funcionário que efetuou a compra.';
-comment on column compra.com_total is 'Valor total da compra (somatório dos valores totais dos itens).';
 
 -----------------------------------------------------------------------------------------------------------------------------
 

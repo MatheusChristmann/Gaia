@@ -50,7 +50,7 @@ on pessoa, pesfisica, pesjuridica to atendente;
 grant select, insert, update, delete
 on endereco to atendente;
 
-grant select on estado, municipio, cep
+grant select on estado, municipio
 to atendente;
 
 grant select, insert on venda, venda_item
@@ -110,7 +110,6 @@ grant comprador to michell;
  Lista de Tabelas:
 estado,
 municipio,
-cep,
 principio_ativo,
 produto,
 tipo_medicamento,
@@ -131,5 +130,3 @@ compra,
 compra_item,
 auditoria,
 */
-
-

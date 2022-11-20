@@ -13,16 +13,13 @@
 create index mun_estado_sk
 on municipio(mun_estado);
 
-create index cep_municipio
-on cep(cep_municipio);
-
 create index pro_principioativo_sk
 on produto(pro_principioativo);
 
 create index pro_tipmedicamento_sk
 on produto(pro_tipmedicamento);
 
-create index pro_tiptarja
+create index pro_tiptarja_sk
 on produto(pro_tiptarja);
 
 create index end_tipendereco_sk
@@ -31,8 +28,8 @@ on endereco(end_tipendereco);
 create index end_pessoa_sk
 on endereco(end_pessoa);
 
-create index end_cep_k
-on endereco(end_cep);
+create index end_municipio_sk
+on endereco(end_municipio);
 
 create index fun_cargo_sk
 on funcionario(fun_cargo);

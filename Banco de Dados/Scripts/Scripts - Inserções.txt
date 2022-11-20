@@ -17,16 +17,6 @@ insert into municipio(mun_nome, mun_estado) values
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-insert into cep(cep_numero, cep_municipio) values
-('91740011', 1),
-('90843454', 1),
-('89900000', 2),
-('89809035', 3),
-('89805280', 3),
-('81830190', 4);
-
------------------------------------------------------------------------------------------------------------------------------
-
 insert into tipo_endereco(ten_descricao) values
 ('Residencial Fixo'),
 ('Residencial Temporário'),
@@ -106,21 +96,46 @@ insert into funcionario values
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-insert into produto(pro_nome, pro_descricao, pro_preco, pro_quantidade, pro_estoque_minimo, pro_status, pro_principioativo, pro_tipmedicamento, pro_tiptarja) values
-('Produto 1', null, 10.0, 0, null, 'A', 1, 1, 1),
-('Produto 2', null, 20.0, 0, null, 'A', 2, 2, 2),
-('Produto 3', null, 30.0, 0, null, 'A', 3, 3, 3);
+insert into produto(pro_nome, pro_descricao, pro_preco, pro_quantidade, pro_status, pro_principioativo, pro_tipmedicamento, pro_tiptarja) values
+('Produto 1', null, 10.0, 0, 'A', 1, 1, 1),
+('Produto 2', null, 20.0, 0, 'A', 2, 2, 2),
+('Produto 3', null, 30.0, 0, 'A', 3, 3, 3);
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-insert into venda(ven_data, ven_pessoa, ven_pagamento, ven_funcionario, ven_total, ven_receita) values
-('2020-11-06', 1, 1, 5, 0, null);
+insert into endereco(end_tipendereco, end_pessoa, end_municipio, end_bairro, end_rua, end_numresid, end_numtelefone, end_numcelular, end_email) values
+(1, 1, 1, 'Bairro 1', 'Rua 1', 111, '99111199', '991687611', 'email11@gmail.com'),
+(2, 2, 2, 'Bairro 2', 'Rua 2', 222, '99222299', '992687622', 'email22@gmail.com'),
+(3, 3, 3, 'Bairro 3', 'Rua 3', 333, '99333399', '993687633', 'email33@gmail.com'),
+(4, 4, 4, 'Bairro 4', 'Rua 4', 444, '99444499', '994687644', 'email44@gmail.com'),
+(2, 5, 4, 'Bairro 5', 'Rua 5', 555, '99555599', '995687655', 'email55@gmail.com');
 
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into notificacao_compra(noc_funcionario, noc_produto, noc_qtd_produto, noc_data, noc_status)values
+(5, 1, 10, '2022-11-11 11:00:00', 'A'),
+(5, 1, 20, '2022-11-11 12:00:00', 'C'),
+(6, 2, 30, '2022-11-11 13:00:00', 'A'),
+(6, 3, 40, '2022-11-11 14:00:00', 'C');
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+insert into venda(ven_data, ven_pessoa, ven_pagamento, ven_funcionario, ven_receita) values
+(current_timestamp, 1, 1, 5, null),
+(current_timestamp, 2, 2, 6, null);
+
+-----------------------------------------------------------------------------------------------------------------------------
 
 insert into venda_item(vei_numvenda, vei_produto, vei_qtd_item, vei_unitario, vei_total_item) values
-(1, 1, 10, 1, 10),
-(1, 2, 20, 2, 40),
-(1, 3, 30, 3, 90);
+(1, 1, 10, 10.00, 100.00),
+(1, 2, 10, 20.00, 200.00),
+(1, 3, 10, 30.00, 300.00),
+(2, 1, 10, 1.00, 10.00),
+(2, 2, 10, 2.00, 20.00),
+(2, 3, 10, 3.00, 30.00);
 
+-----------------------------------------------------------------------------------------------------------------------------
+/*insert into compra(com_data, com_pessoa, com_pagamento, com_funcionario) values
+(current_timestamp, )
 
-
+*/
