@@ -1,6 +1,4 @@
-/* CRIAÇÃO DAS VIEWS DO BANCO DE DADOS GAIADB */
-
--- Necessário realizar testes para validar se os SQL's estão corretos
+/* VIEWS (RELATÓRIOS) */
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -28,6 +26,7 @@ from produto
 inner join produto_movimento on (produto_movimento.mov_produto = produto.pro_cod and produto_movimento.mov_qtd_produto > 0)
 inner join pessoa on (pessoa.pes_cod = produto_movimento.mov_pessoa)
 where produto.pro_quantidade > 10
+and pessoa.pes_tipo = 'J'
 order by pessoa.pes_nome desc;
 
 -----------------------------------------------------------------------------------------------------------------------------
@@ -41,13 +40,15 @@ select
 	produto.pro_cod,
 	produto.pro_nome,
 	extract(month from venda.ven_data) as "Mes",
-	sum(venda_item.vei_qtd_item) as "Qtd Total Vendida"
+	extract(year from venda.ven_data) as "Ano", -- Serve para que os meses não se agrupem com anos diferentes
+	sum(venda_item.vei_qtd_item) as "Qtd Total Vendas"
 from produto
-inner join venda_item on (venda_item.vei_produto  = produto.pro_cod)
+inner join venda_item on (venda_item.vei_produto = produto.pro_cod)
 inner join venda on (venda.ven_numero  = venda_item.vei_numvenda)
 where extract(year from venda.ven_data) in (2020,2021)
-group by 1, 2, 3
-order by "Qtd Total Vendida" desc;
+group by 1, 2, 3, 4
+order by "Qtd Total Vendas" desc;
+
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -59,10 +60,11 @@ create view relatorio04_vw as
 select 
 	pesfisica.fis_cpf,
 	pessoa.pes_nome,
-	sum(venda.ven_total) as "Total em Compras"
+	sum(venda_item.vei_total_item) as "Total em Compras"
 from pessoa
 inner join pesfisica on (pesfisica.fis_pessoa = pessoa.pes_cod)
 inner join venda on (venda.ven_pessoa = pessoa.pes_cod)
+inner join venda_item on (venda.ven_numero = venda_item.vei_numvenda)
 where pesfisica.fis_genero = 'M'
 and extract (year from age(current_date , pesfisica.fis_datanascimento)) between 20 and 40
 and mod(extract(month from venda.ven_data),2) = 0 and extract(year from venda.ven_data) = 2021

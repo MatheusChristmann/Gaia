@@ -1,14 +1,4 @@
-/* CRIAÇÃO DOS ÍNDICES DO BANCO DE DADOS GAIADB */
-
-
-/*
- 	Realizar o seguinte cálculo abaixo para ver se é necessário a criação de mais indexes:
- 
-  	Uma forma de avaliar se é uma boa ideia criar um índice sobre determinadas colunas
-	de uma tabela, é utilizar a seguinte fórmula: número de registros distintos/número de registros total; 
-	esta fórmula vai gerar a seletividade do índice, quanto mais próximo de 1 mais indicada é a
-	criação do índice.
-*/
+/* ÍNDICES */
 
 create index mun_estado_sk
 on municipio(mun_estado);
@@ -75,3 +65,15 @@ on compra_item(coi_numcompra);
 
 create index coi_produto_sk
 on compra_item(coi_produto);
+
+create index pro_nome_sk
+on produto(pro_nome)
+
+create index pra_descricao_sk
+on principio_ativo(pra_descricao)
+
+create index pes_nome_sk
+on pessoa(pes_nome)
+
+create index mun_nome_sk
+on municipio(mun_cod)
