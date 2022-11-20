@@ -1,0 +1,76 @@
+/* REQUISITOS DO SISTEMAS */
+
+---------------------------------------------------------------------------------------------------------------------------
+
+/* Requisitos Funcionais */
+RF 01 - O sistema deverá permitir o cadastro de clientes com suas informações básicas;
+
+RF 02 - O sistema deverá possibilitar a distinção no cadastro entre clientes e fornecedores;
+
+RF 03 - O sistema deverá armazenar a data de cadastro do cliente no sistema;
+
+RF 04 - O sistema deverá possibilitar a visualização de relatórios pré-definidos pela gerência;
+
+RF 05 - O sistema deverá permitir o cadastro de funcionários e manipulação de seus dados;
+
+RF 06 - O sistema deve possibilitar o cadastro de cargos para poder vinculá-los aos funcionários já cadastrados;
+
+RF 07 -  O sistema deve possibilitar o cadastro de endereços contendo informações de localização(Município, bairro,
+		 rua e nº residência) e dados de contato do endereço(Nº telefone, nº celular e email);
+		
+RF 08 - O sistema deverá ter "tipos de endereços"(Comercial, Residencial Fixo, Residencial Temporário...) 
+		pré-cadastrados para tiparem os endereços dos clientes;
+
+RF 09 - O sistema deverá ter pré-cadastrado uma série de Estados e Municípios;
+
+RF 10 - O sistema deverá permitir o cadastro de produtos com suas informações básicas como nome, descrição e preço;
+
+RF 11 - O sistema deverá permitir o cadastro de princípios ativos para poder vinculá-los aos produtos já cadastrados;
+
+RF 12 - O sistema deve ter tipos de medicamentos(Referência, similar e genérico) e tipos de tarja(Sem tarja, vermelha, 
+		amarela, e preta) pré-cadastrados para poder vinculá-los aos produtos já cadastrados;
+
+RF 13 - O sistema deve possuir já cadastrados tipos de pagamentos(Dinheiro, Cheque, Cartão de Crédito...) para poder vinculá-los
+		a processos de compra e venda de produtos;
+	
+RF 14 - O sistema deverá possibilitar a realização de compras de produtos onde será informado data, fornecedor, tipo de pagamento, 
+		funcionário que está realizando o processo e os dados dos itens a serem comprados;
+	
+RF 15 - O sistema deverá possibilitar a realização de vendas de produtos onde será informado data, fornecedor, tipo de pagamento, 
+		funcionário que está realizando o processo e os dados dos itens a serem vendidos;
+	
+RF 16 - O sistema deve possuir um controle de estoque dos produtos que sofrem movimentação através de compras e vendas;
+
+RF 17 - O sistema deve possibilitar a anexação de receitas médicas durante a venda de produtos caso o cliente apresente o documento;
+
+RF 18 - O sistema deve possibilitar a inserção e manipulação de notificações de compra que são emitidas por um atendente para 
+		o comprador caso um produto esteja com o estoque baixo ou não tenha mais estoque;
+	
+RF 19 - O sistema deve ter um controle de status de ativo e inativo no cadastro de clientes e produtos;
+
+RF 20 - O sistema deve ter um controle de status de aberto ou concluído no cadastro de notificações de compra;
+
+
+/* Requisitos Não Funcionais */
+
+RFN 01 - O sistema deverá ter um documento contendo o diagrama de classes, diagrama de caso de uso e demais diagramas usados para criação do sistema;
+
+RFN 02 - O banco de dados utilizado pelo sistema será o PostgreSQL;
+
+RFN 03 - O sistema deverá ser disponibilizado e acessado via web;
+
+RNF 04 - O sistema deverá ter uma interface amigável e intuitiva;
+
+RFN 05 - O sistema deverá realizar consultas com tempo de resposta desejável menor que 10 segundos;
+
+RFN 06 - O sistema deverá ser escrito na linguagem Java;
+
+RFN 07 - O sistema deverá ser implementado com cores que contrastam entre claro e escuro;
+
+RFN 08 - O sistema deve estar disponível para acesso 24 horas por dia;
+
+RNF 09 - O código fonte do sistema deverá ter uma documentação;
+
+RNF 10 - O sistema deve ser desenvolvido seguindo o padrão de orientação a objetos;
+
+RNF 11 - O sistema deverá realizar backups periódicos conforme acordado nas políticas de backup;
