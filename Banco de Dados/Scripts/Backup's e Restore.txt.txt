@@ -1,41 +1,70 @@
 /* POLÍTICAS DE BACKUP E RESTORE 
 
-Responsável pela Política: Matheus Felipe Christmann
+Introdução à Política da Empresa: Esta Política de Backup e Restauração de Dados objetiva instituir diretrizes e responsabilidades 
+que visam à segurança, proteção e disponibilidade dos dados definidos como de necessária salvaguarda para os clientes do 
+Sistema Gaia. É fundamental estabelecer mecanismos que permitam a guarda dos dados e sua 
+eventual restauração em casos de indisponibilidades ou perdas por erro humano, ataques, catástrofes naturais ou outras ameaças. 
+O presente documento apresenta a Política de Backup e Restauração de Dados, onde se estabelece o modo e a periodicidade de cópia 
+dos dados armazenados pelos sistemas computacionais.
 
-Aprovado por: Gerente da Farmácia
+Responsável pela Política de Backup: Matheus Felipe Christmann
 
-Localização do Armazenamento:
+Aprovado por: Gerente da Farmácia (Cliente)
 
-Data da Aprovação: Mesma data de Implantação do Sistema
+Data da Aprovação da Política Mesma data de Implantação do Sistema.
 
-Revisão do Backup: A presente política de backup e restore está sujeita a revisões e possíveis atualizações em um período de a cada 2 meses.
+Localização do Armazenamento: Todos os backup's serão armazenados em nuvem 
 
-A Política de Backup e Restauração de Dados Digitais objetiva instituir diretrizes, responsabilidades e competências que visam à segurança, 
-proteção e disponibilidade dos dados digitais custodiados pela(s) [unidades de tecnologia da informação (TI)] e formalmente definidos como 
-de necessária salvaguarda na [Organização], para se manter a continuidade do negócio. No sentido de assegurar sua missão é fundamental estabelecer 
-mecanismos que permitam a guarda dos dados e sua eventual restauração em casos de indisponibilidades ou perdas por erro humano, ataques, catástrofes 
-naturais ou outras ameaças. O presente documento apresenta a Política de Backup e Restauração de Dados Digitais, onde se estabelece o modo e a 
-periodicidade de cópia dos dados armazenados pelos sistemas computacionais.
+Revisão da Política: A presente política de backup e restore será sujeita a revisões e possíveis atualizações em um período de a cada 2 meses 
+visando aperfeiçoar as técnicas já utilizadas e encontrar possíveis falhas que possam vir a ocorrer.
 
+Backup's:
+- Backup Físico programado para ser realizado 1 vez por dia as 03:00
+- Backup Lógico programado para ser realizado 2 vezes por dia as 12:00 e 18:00
+- Backup de logs programado para ser realizado 3 vezes por dia as 09:00, 15:00 e as 21:00
 
-Comentar sobre situação de restore, testes e revisões de mídia
+Programação:
+03:00: Backup Físico - Cold Backup
+09:00: Backup de Logs - Hot Backup
+12:00: Backup Lógico - Hot Backup
+15:00: Backup de Logs - Hot Backup
+18:00: Backup Lógico - Hot Backup
+21:00: Backup de Logs - Cold Backup
 
+Levando em conta uma farmácia que abre suas portas as 06:00 da manhã e encerra o expediente as 21:00, o caso mais grave de perda de dados 
+com a política acima será de no máximo 03:00 horas.
+Caso a farmácia tenha o expediente de 24 horas, o caso mais grave de perda de dados com a política acima será de no máximo 06:00 horas, 
+no entanto vale frisar que entende-se que no período noturno há menos movimentação dentro do estabelecimento, consequentemente diminuindo o 
+"fluxo de alterações" no banco de dados.
 
+Restore e Testes:
+Os testes de restore da base de dados estão programados para ocorrerem diariamente para garantir a disponibilidade dos dados em caso de perdas ou catástrofes.
 
+---------------------------------------------------------------------------------------------------------------------------------------------------------------
+BACKUP FÍSICO:
 
+@echo off
 
+set x=%DATE:~0,2%-%DATE:~3,2%-%DATE:~6,4%
+echo %x%
+set date=%x%
+echo %date%
 
-Tipos de backups:
-Lógico - Scripts
-Físico - Dados
-Logs - Mais rápido para recuperar
+   set PGUSER=gaiadba
+   set BACKUP_FILE=C:\Backup\gaiadbBackup_%date%.backup
+   echo backup file name is %BACKUP_FILE%
+   SET PGPASSWORD=_#@gaiadba@#_
+   echo on
+   "C:\Program Files\PostgreSQL\14\bin\pg_dump.exe" -h localhost -p 5432 -U gaiadba -C -F p  -v -f %BACKUP_FILE% gaiadb
+pause
 
+------------------------------------------------------------------------------------------------------------------------------
+RESTORE:
 
-
-
-
-
-
-
-
+@echo off
+   set PGUSER=gaiadba
+   SET PGPASSWORD=_#@gaiadba@#_
+   echo on
+    "C:\Program Files\PostgreSQL\14\bin\psql.exe" -h localhost -p 5432 -d gaiadb -U gaiadba -f C:\Backup\"AQUI VAI O NOME DO BACKUP".backup
+pause
 */
