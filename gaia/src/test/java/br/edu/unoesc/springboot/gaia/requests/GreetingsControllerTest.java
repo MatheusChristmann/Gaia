@@ -1,4 +1,4 @@
-package br.com.springboot.gaia.requests;
+package br.edu.unoesc.springboot.gaia.requests;
 
 import com.hackerrank.test.utility.Order;
 import com.hackerrank.test.utility.OrderedTestRunner;

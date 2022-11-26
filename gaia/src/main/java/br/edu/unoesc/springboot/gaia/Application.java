@@ -1,4 +1,4 @@
-package br.com.springboot.gaia;
+package br.edu.unoesc.springboot.gaia;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
