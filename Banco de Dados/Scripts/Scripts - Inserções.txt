@@ -96,10 +96,10 @@ insert into funcionario values
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-insert into produto(pro_nome, pro_descricao, pro_preco, pro_quantidade, pro_status, pro_principioativo, pro_tipmedicamento, pro_tiptarja) values
-('Produto 1', null, 10.0, 0, 'A', 1, 1, 1),
-('Produto 2', null, 20.0, 0, 'A', 2, 2, 2),
-('Produto 3', null, 30.0, 0, 'A', 3, 3, 3);
+insert into produto(pro_nome, pro_descricao, pro_preco, pro_status, pro_principioativo, pro_tipmedicamento, pro_tiptarja) values
+('Produto 1', null, 10.0, 'A', 1, 1, 1),
+('Produto 2', null, 20.0, 'A', 2, 2, 2),
+('Produto 3', null, 30.0, 'A', 3, 3, 3);
 
 -----------------------------------------------------------------------------------------------------------------------------
 
@@ -151,5 +151,3 @@ insert into compra_item(coi_numcompra, coi_produto, coi_qtd_item, coi_unitario, 
 (3, 3, 2, 30.00, 60.00);
 
 -----------------------------------------------------------------------------------------------------------------------------
-
-

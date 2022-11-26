@@ -80,7 +80,6 @@ create table produto(
 	pro_nome varchar(40) not null,
 	pro_descricao varchar(70),
 	pro_preco numeric(10,2) not null,
-	pro_quantidade integer not null,
 	pro_status char(1) constraint pro_status_ck check (pro_status in ('A', 'I')) not null,	
 	pro_principioativo integer constraint pro_principio_ativo_fk references principio_ativo(pra_cod) not null,
 	pro_tipmedicamento integer constraint pro_tipo_medicamento_fk references tipo_medicamento(tim_cod) not null,
@@ -92,7 +91,6 @@ comment on column produto.pro_cod is 'Código do produto.';
 comment on column produto.pro_nome is 'Nome do produto.';
 comment on column produto.pro_descricao is 'Descrição do produto.';
 comment on column produto.pro_preco is 'Preço de venda do produto.';
-comment on column produto.pro_quantidade is 'Quantidade em estoque do produto.';
 comment on column produto.pro_status is 'Campo que indica se o cadastro do produto está inativo ou ativo (I = inativo, A = ativo).';
 comment on column produto.pro_principioativo is 'Princípio ativo do produto.';
 comment on column produto.pro_tipmedicamento is 'Tipo de medicamento do produto.';
