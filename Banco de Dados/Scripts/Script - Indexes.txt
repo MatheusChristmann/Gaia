@@ -67,13 +67,13 @@ create index coi_produto_sk
 on compra_item(coi_produto);
 
 create index pro_nome_sk
-on produto(pro_nome)
+on produto(pro_nome);
 
 create index pra_descricao_sk
-on principio_ativo(pra_descricao)
+on principio_ativo(pra_descricao);
 
 create index pes_nome_sk
-on pessoa(pes_nome)
+on pessoa(pes_nome);
 
 create index mun_nome_sk
-on municipio(mun_cod)
+on municipio(mun_cod);

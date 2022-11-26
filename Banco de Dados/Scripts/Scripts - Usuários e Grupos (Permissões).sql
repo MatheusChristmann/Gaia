@@ -12,7 +12,7 @@ o usuário jean será gerente. */
 -----------------------------------------------------------------------------------------------------------------------------
 
 /* USUÁRIOS */
-create user gaiadba with superuser password '_#@gaiadba@#_';
+create user gaiadba with superuser password '@gaiadba2022@';
 
 create user otilia with password '@otilia123';
 create user roberson with password '@roberson123';

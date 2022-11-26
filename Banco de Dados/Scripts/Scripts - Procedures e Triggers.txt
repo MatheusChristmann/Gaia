@@ -221,7 +221,7 @@ $body$
 declare
 	totalEstoque integer;
 begin 
-	select sum(mov_qtd_produto) into totalEstoque from produto_movimento where mov_produto = cod_produto group by mov_produto  	
+	select sum(mov_qtd_produto) into totalEstoque from produto_movimento where mov_produto = cod_produto group by mov_produto;  	
 	return totalEstoque;
 end
 $body$

@@ -17,6 +17,6 @@ public class GreetingsController {
     @RequestMapping(value = "/{name}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public String greetingText(@PathVariable String name) {
-        return "Hello World! Começa aqui o projeto Gaia...";
+        return "Hello World!";
     }
 }

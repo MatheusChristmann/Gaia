@@ -25,8 +25,9 @@ select distinct
 from produto
 inner join produto_movimento on (produto_movimento.mov_produto = produto.pro_cod and produto_movimento.mov_qtd_produto > 0)
 inner join pessoa on (pessoa.pes_cod = produto_movimento.mov_pessoa)
-where produto.pro_quantidade > 10
-and pessoa.pes_tipo = 'J'
+where --produto.pro_quantidade > 10
+--and 
+pessoa.pes_tipo = 'J'
 order by pessoa.pes_nome desc;
 
 -----------------------------------------------------------------------------------------------------------------------------
