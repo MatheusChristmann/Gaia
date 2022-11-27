@@ -60,7 +60,7 @@ public class GreetingsController {
 	    return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK) ;
 	}
 	
-	@PostMapping(value = "salvarProdutos")
+	@PostMapping(value = "salvarJSONProduto")
     @ResponseBody
     public ResponseEntity<Produto> salvarProdutos(@RequestBody Produto produto){
     	Produto prod = produtoRepository.save(produto);
