@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<!-- Bootstrap CSS -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" 
+	rel="stylesheet" 
+	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+	crossorigin="anonymous">
+
+	<link rel="icon" href="./images/iconPage.png">
+
+	<title>Gaia</title>
+	
+	<style>
+		:root{
+			--bs-body-bg:#DCDCDC;
+		}			
+	</style>	
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  		<div class="container-fluid">
+    		<a class="navbar-brand" href="#">Home</a>
+    		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+    				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      			<span class="navbar-toggler-icon"></span>
+    		</button>
+    		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+      			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        			<li class="nav-item dropdown">
+          				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            				Cadastros
+          				</a>
+          				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            				<li><a class="dropdown-item" href="index.html"> Produtos</a></li>
+            				<li><a class="dropdown-item" href="">Princípio Ativo</a></li>
+          				</ul>
+        			</li>
+      			</ul>
+    		</div>
+  		</div>
+	</nav>
+	
+	<div class="formCadastroPrincipioAtivo row justify-content-center">
+		<h2 class="col-md-3">Princípio Ativo</h2><br>
+		<form action="" id="formCadastroPrincipioAtivo" class="row justify-content-center">
+			<div class="col-md-1">
+	    		<label for="pra_cod" class="form-label">Código:</label>
+    			<input type="text" class="form-control" id="pra_cod" readonly="readonly">
+			</div>
+  			<div class="col-4">
+	    		<label for="pra_descricao" class="form-label">Descrição:</label>
+    			<input type="text" class="form-control" id="pra_descricao" placeholder="Descricao" required = "required">
+			</div>
+  			<div class="w-100"></div><br>
+  			<div class="buttons col-md-5">	    		
+    			<button type="button" class="btn btn-secondary" onclick ="document.getElementById('formCadastroPrincipioAtivo').reset();">Adicionar</button>
+				<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPesquisarPrincipioAtivo">Pesquisar</button>
+				<button type="button" class="btn btn-primary" onclick="salvarPrincipioAtivo()">Salvar</button>		
+  			</div>
+  		</form>
+	</div>
+  	
+  	<div class="modal" id="modalPesquisarPrincipioAtivo" tabindex="-1" aria-labelledby="Pesquisar Princípio Ativo" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisa de Princípio Ativo:</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="mb-3">
+							<label for="nomePrincipioAtivoBusca" class="col-form-label">Informe o nome/descrição:</label> 
+							<input type="text" class="form-control" id="nomePrincipioAtivoBusca">
+						</div>
+						<button type="button" class="btn btn-success" onclick="buscarPrincipioAtivoPorNome()">Buscar</button>
+					</form>
+				</div>
+				<div style="height:300px; overflow:auto;">
+					<table class="table table-striped" id="tabelaresultados">
+						<thead>
+							<tr>
+								<th scope="col">Cód</th>
+								<th scope="col">Descrição</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script
+  		src="https://code.jquery.com/jquery-3.6.1.min.js"
+  		integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
+  		crossorigin="anonymous">
+	</script>
+  
+	<!-- Option 1: Bootstrap Bundle with Popper -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+		crossorigin="anonymous">
+	</script>
+		
+	<script type="text/javascript">
+		function salvarPrincipioAtivo(){
+			var cod = $("#pra_cod").val();
+			var descricao = $("#pra_descricao").val();
+
+			if(descricao == ""){
+				alert("Informe a descrição do princípio ativo!");
+				$("#pra_descricao").focus();
+				return;
+			}
+			else if(descricao.length > 40){
+				alert("Descrição muito grande! Máximo de 40 caracteres!");
+				$("#pra_descricao").focus();
+				return;
+			}
+					
+			$.ajax({
+				method : "POST",
+				url : "salvarJSONPrincipioAtivo",
+				data : JSON.stringify({cod : cod, descricao : descricao}),
+				contentType : "application/json; charset=utf-8",
+				success : function(response){
+					$("#pra_cod").val(response.cod);
+					alert("Princípio Ativo salvo com sucesso!");
+				}
+			}).fail(function (xhr, status, errorThrown){
+				alert("Erro ao salvar o Princípio Ativo!");
+			});	
+		}	
+		
+		function buscarPrincipioAtivoPorNome(){
+			var nomePrincipioAtivoBusca = $("#nomePrincipioAtivoBusca").val();
+			if (nomePrincipioAtivoBusca != null && nomePrincipioAtivoBusca.trim()!= ''){
+				$.ajax({ 
+					method : "GET", 
+					url : "buscarPrincipioAtivoPorNome", 
+					data : "descricao=" + nomePrincipioAtivoBusca,
+					success : 
+					function(response){
+						$("#tabelaresultados > tbody > tr").remove();
+						for (var i = 0; i < response.length; i++){
+							$('#tabelaresultados > tbody').append('<tr cod="'+response[i].cod+'"><td>' + 
+									response[i].cod + '</td><td>' + 													
+									response[i].descricao +'</td><td> <button type="button" onclick="colocarPrincipioAtivoEmEdicao('+response[i].cod +')"class="btn btn-primary">+</button></td></tr>')					
+						}
+					}
+				}).fail(function (xhr, status, errorThrown){ 
+					alert("Erro ao buscar o Principio Ativo!"); 					
+				}); 
+			}		
+		}
+		
+		function colocarPrincipioAtivoEmEdicao(cod) {		  
+			  $.ajax({
+					method : "GET",
+					url : "buscarPrincipioAtivoId",
+					data : "idPrinAtivo=" + cod ,
+					success : function(response) {
+						$("#pra_cod").val(response.cod);
+						$("#pra_descricao").val(response.descricao);
+						$('#modalPesquisarPrincipioAtivo').modal('hide');			  
+					}
+				}).fail(function(xhr, status, errorThrown) {
+					alert("Erro ao buscar Princípio Ativo pelo código!");
+				});		  
+		  }
+	</script>
+</body>
+</html>

@@ -14,6 +14,12 @@
 
 	<title>Gaia</title>
 	
+	<style>
+		:root{
+			--bs-body-bg: #DCDCDC;
+		}			
+	</style>
+	
 </head>
 
 <body>
@@ -32,7 +38,7 @@
           				</a>
           				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             				<li><a class="dropdown-item" href=""> Produtos</a></li>
-            				<li><a class="dropdown-item" href="">Clientes</a></li>
+            				<li><a class="dropdown-item" href="principioAtivo.html">Princípio Ativo</a></li>
           				</ul>
         			</li>
       			</ul>
@@ -40,37 +46,60 @@
   		</div>
 	</nav>
 	
-	<div class=formCadastroProduto"">
-		<form action="" id="formCadastroProduto" class="row g-3">
-		<div class="col-md-1">
-    		<label for="pro_cod" class="form-label">Código:</label>
-    		<input type="text" class="form-control" id="pro_cod" readonly="readonly">
-		</div>
-  		<div class="col-md-5">
-    		<label for="pro_nome" class="form-label">Nome:</label>
-    		<input type="text" class="form-control" id="pro_nome" placeholder="Nome do Produto" required = "required">
-		</div>
-  		<div class="col-md-6">
-	    	<label for="pro_descricao" class="form-label">Descrição:</label>
-    		<input type="text" class="form-control" id="pro_descricao">
-  		</div>
-  		<div class="col-md-2">
-	    	<label for="pro_preco" class="form-label">Preço:</label>
-    		<input type="number" class="form-control" id="pro_preco" placeholder="Preço do produto" required = "required">
-  		</div>
-  		<div class="col-md-2">
-    		<label for="pro_status" class="form-label">Status</label>
-    		<select id="pro_status" class="form-select" required = "required">
-      			<option value="A" selected>Ativo</option>
-      			<option value="I">Inativo</option>
-    		</select>
-  		</div>
-  		<div class="col-md-6 offset-md-3">
-    		<button type="button" class="btn btn-primary" onclick="salvarProduto()">Salvar</button>
-    		<button type="button" class="btn btn-secondary" onclick ="document.getElementById('formCadastroProduto').reset();">Novo</button>
-			<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPesquisarProduto">Pesquisar</button>	
-			<button type="button" class="btn btn-danger" onclick="excluirProdutoBotao()">Excluir</button>
-  		</div>
+	<div class="formCadastroProduto row justify-content-center">
+		<h2 class="col-md-3">Produtos</h2><br>
+		<div class="w-100"></div>		
+		<form action="" id="formCadastroProduto" class="row justify-content-center">
+			<div class="col-md-1">
+	    		<label for="pro_cod" class="form-label">Código:</label>
+    			<input type="text" class="form-control" id="pro_cod" readonly="readonly">
+			</div>
+  			<div class="col-4">
+	    		<label for="pro_nome" class="form-label">Nome:</label>
+    			<input type="text" class="form-control" id="pro_nome" placeholder="Nome" required = "required">
+			</div>
+  			<div class="w-100"></div>
+  			<div class="col-md-2">
+		    	<label for="pro_preco" class="form-label">Preço:</label>
+    			<input type="number" class="form-control" id="pro_preco" placeholder="Preço" required = "required">
+  			</div>
+  			<div class="col-md-3">
+	    		<label for="pro_status" class="form-label">Status</label>
+    			<select id="pro_status" class="form-select" required = "required">
+	      			<option value="A" selected>Ativo</option>
+      				<option value="I">Inativo</option>
+    			</select>
+  			</div>
+  			<div class="w-100"></div>
+  			<div class="col-md-3">
+	    		<label for="pro_tipmedicamento" class="form-label">Tipo de Medicamento</label>
+    			<select id="pro_tipmedicamento" class="form-select" required = "required">
+      				<option value="R" selected>Referência</option>
+      				<option value="S">Similar</option>
+      				<option value="G">Genérico</option>
+    			</select>
+  			</div>
+  			<div class="col-md-2">
+	    		<label for="pro_tiptarja" class="form-label">Tarja</label>
+    			<select id="pro_tiptarja" class="form-select" required = "required">
+	      			<option value="S" selected>Sem Tarja</option>
+      				<option value="A">Amarela</option>
+      				<option value="V">Vermelha</option>
+      				<option value="P">Preta</option>
+    			</select>
+  			</div>
+  			<div class="w-100"></div>
+  			<div class="col-md-5">
+  				<label for="pro_descricao" class="form-label">Descrição:</label>
+  				<textarea class="form-control" id="pro_descricao" rows="3"></textarea>
+			</div>
+  			<div class="w-100"></div><br>
+  			<div class="buttons col-md-5">
+	    		<button type="button" class="btn btn-primary" onclick="salvarProduto()">Salvar</button>
+    			<button type="button" class="btn btn-secondary" onclick ="document.getElementById('formCadastroProduto').reset();">Adicionar</button>
+				<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPesquisarProduto">Pesquisar</button>	
+				<button type="button" class="btn btn-danger" onclick="excluirProdutoBotao()">Excluir</button>	
+  			</div>
   		</form>
 	</div>
   	
@@ -131,26 +160,40 @@
 			var descricao = $("#pro_descricao").val();
 			var preco = $("#pro_preco").val();
 			var status = $("#pro_status").val();
+			var tipmedicamento = $("#pro_tipmedicamento").val();
+			var tiptarja = $("#pro_tiptarja").val();
 
 			if(nome == ""){
 				alert("Informe o nome do produto!");
 				$("#pro_nome").focus();
 				return;
-			}else{
-				$.ajax({
-					method : "POST",
-					url : "salvarJSONProduto",
-					data : JSON.stringify({cod : cod, nome : nome, descricao: descricao, preco: preco, status: status}),
-					contentType : "application/json; charset=utf-8",
-					success : function(response){
-						$("#pro_cod").val(response.cod);
-						alert("Produto salvo com sucesso!");
-					}
-				}).fail(function (xhr, status, errorThrown){
-					alert("Erro ao salvar o produto!");
-				});	
-			}		
-		}
+			}
+			
+			if(preco <= 0){
+				alert("Verifique o preço!");
+				$("#pro_preco").focus();
+				return;	
+			}
+			
+			if(descricao.length > 70){
+				alert("Descrição muito grande! Máximo de 70 caracteres!");
+				$("#pro_descricao").focus();
+				return;	
+			}
+		
+			$.ajax({
+				method : "POST",
+				url : "salvarJSONProduto",
+				data : JSON.stringify({cod : cod, nome : nome, descricao : descricao, preco : preco, status : status, tipmedicamento : tipmedicamento, tiptarja: tiptarja}),
+				contentType : "application/json; charset=utf-8",
+				success : function(response){
+					$("#pro_cod").val(response.cod);
+					alert("Produto salvo com sucesso!");
+				}
+			}).fail(function (xhr, status, errorThrown){
+				alert("Erro ao salvar o produto!");
+			});	
+		}	
 		
 		function buscarProdutoPorNome(){
 			var nomeProdutoBusca = $("#nomeProdutoBusca").val();
@@ -187,6 +230,8 @@
 						$("#pro_descricao").val(response.descricao);
 						$("#pro_preco").val(response.preco);
 						$("#pro_status").val(response.status);
+						$("#pro_tipmedicamento").val(response.tipmedicamento);
+						$("#pro_tiptarja").val(response.tiptarja);
 						$('#modalPesquisarProduto').modal('hide');			  
 					}
 				}).fail(function(xhr, status, errorThrown) {

@@ -7,9 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,7 +16,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.unoesc.springboot.gaia.model.PrincipioAtivo;
 import br.edu.unoesc.springboot.gaia.model.Produto;
+import br.edu.unoesc.springboot.gaia.repository.PrincipioAtivoRepository;
 import br.edu.unoesc.springboot.gaia.repository.ProdutoRepository;
 
 /**
@@ -31,38 +31,20 @@ public class GreetingsController {
      *
      * @param name the name to greet
      * @return greeting text
-     */
-    @RequestMapping(value = "/oi", method = RequestMethod.GET)
+     */  
+	@RequestMapping(value = "/oi", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public String greetingText(@PathVariable String name) {
-        return "Hello World!";
+    public String greetingText() {
+        return "Hello World! Começa aqui o projeto Gaia...";
     }
-    
+	
+	// ----- PRODUTO ----- //
     @Autowired
-	private ProdutoRepository produtoRepository;	
+	private ProdutoRepository produtoRepository;
     
-	@RequestMapping(value = "gravarProduto", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-   	 public String gravarProduto(){	
-    		Produto produto = new Produto();
-    		produto.setNome("Produto");
-    		produto.setDescricao(null);
-    		produto.setPreco(10.0);
-    		produto.setStatus('A');   		
-    		produtoRepository.save(produto);
-    		return "Adição concluída!";    	
-    }
-	
-	@GetMapping(value="listarProdutos")	
-	  @ResponseBody
-	public ResponseEntity<List<Produto>>listaProdutos(){
-	    List<Produto> produtos = produtoRepository.findAll();
-	    return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK) ;
-	}
-	
 	@PostMapping(value = "salvarJSONProduto")
     @ResponseBody
-    public ResponseEntity<Produto> salvarProdutos(@RequestBody Produto produto){
+    public ResponseEntity<Produto> salvarJSONProduto(@RequestBody Produto produto){
     	Produto prod = produtoRepository.save(produto);
     	return new ResponseEntity<Produto>(prod, HttpStatus.CREATED);
     }
@@ -81,20 +63,35 @@ public class GreetingsController {
 		return new ResponseEntity<Produto>(produto, HttpStatus.OK);
 	}		
 	
-	@PutMapping(value = "atualizarProduto")
-	@ResponseBody
-	public ResponseEntity<?> atualizarProduto(@RequestBody Produto produto){
-		if(produto.getCod()==null) {
-			return new ResponseEntity<String>("Código do Produto não informado para atualizar!", HttpStatus.OK);
-		}
-		Produto prod = produtoRepository.saveAndFlush(produto);
-		return new ResponseEntity<Produto>(prod, HttpStatus.OK);
-	}
-	
 	@GetMapping(value = "buscarProdutoPorNome")
 	@ResponseBody
 	public ResponseEntity<List<Produto>>buscarProdutoPorNome(@RequestParam(name = "nome") String nome){
 		List<Produto> produto = produtoRepository.buscarProdutoPorNome(nome.trim().toUpperCase());
 		return new ResponseEntity<List<Produto>>(produto, HttpStatus.OK);
+	}
+	
+	// ----- PRINCIPIO ATIVO ----- //
+	@Autowired	
+	private PrincipioAtivoRepository principioAtivoRepository;
+	
+	@PostMapping(value = "salvarJSONPrincipioAtivo")
+    @ResponseBody
+    public ResponseEntity<PrincipioAtivo> salvarJSONProduto(@RequestBody PrincipioAtivo prinAtivo){
+		PrincipioAtivo pAtivo = principioAtivoRepository.save(prinAtivo);
+    	return new ResponseEntity<PrincipioAtivo>(pAtivo, HttpStatus.CREATED);
+    }
+		
+	@GetMapping(value = "buscarPrincipioAtivoId")
+	@ResponseBody
+	public ResponseEntity<PrincipioAtivo> buscarPrincipioAtivoId(@RequestParam(name = "idPrinAtivo") Long idPrinAtivo){
+		PrincipioAtivo pAtivo = principioAtivoRepository.findById(idPrinAtivo).get();
+		return new ResponseEntity<PrincipioAtivo>(pAtivo, HttpStatus.OK);
+	}		
+	
+	@GetMapping(value = "buscarPrincipioAtivoPorNome")
+	@ResponseBody
+	public ResponseEntity<List<PrincipioAtivo>>buscarPrincipioAtivoPorNome(@RequestParam(name = "descricao") String descricao){
+		List<PrincipioAtivo> pAtivo = principioAtivoRepository.buscarPrincipioAtivoPorNome(descricao.trim().toUpperCase());
+		return new ResponseEntity<List<PrincipioAtivo>>(pAtivo, HttpStatus.OK);
 	}
 }
