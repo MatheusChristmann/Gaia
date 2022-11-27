@@ -91,10 +91,10 @@ public class GreetingsController {
 		return new ResponseEntity<Produto>(prod, HttpStatus.OK);
 	}
 	
-	/*@GetMapping(value = "buscarProdutoPorNome")
+	@GetMapping(value = "buscarProdutoPorNome")
 	@ResponseBody
-	public ResponseEntity<List<Produto>>buscarProdutoPorNome(@RequestParam(name = "pro_nome") String name){
-		List<Produto> produto = produtoRepository.buscarProdutoPorNome(name.trim().toUpperCase());
+	public ResponseEntity<List<Produto>>buscarProdutoPorNome(@RequestParam(name = "nome") String nome){
+		List<Produto> produto = produtoRepository.buscarProdutoPorNome(nome.trim().toUpperCase());
 		return new ResponseEntity<List<Produto>>(produto, HttpStatus.OK);
-	}*/
+	}
 }
