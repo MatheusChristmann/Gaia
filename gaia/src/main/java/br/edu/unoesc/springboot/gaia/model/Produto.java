@@ -47,14 +47,17 @@ public class Produto implements Serializable{
 	private TipoTarja tipoTarja;
 	
 	@ManyToOne
-	@JoinColumn(name="pro_principioativo")
+	@JoinColumn(name="pro_principioativo", nullable = true)
 	PrincipioAtivo prinipioAtivo;
-	
-	
+
 	// ----- GETTERS and SETTERS ----- //
 	
 	public Long getCod() {
 		return cod;
+	}
+
+	public void setCod(Long cod) {
+		this.cod = cod;
 	}
 
 	public String getNome() {
@@ -96,7 +99,7 @@ public class Produto implements Serializable{
 	public void setTipoMedicamento(TipoMedicamento tipoMedicamento) {
 		this.tipoMedicamento = tipoMedicamento;
 	}
-	
+
 	public TipoTarja getTipoTarja() {
 		return tipoTarja;
 	}
@@ -104,4 +107,12 @@ public class Produto implements Serializable{
 	public void setTipoTarja(TipoTarja tipoTarja) {
 		this.tipoTarja = tipoTarja;
 	}
+
+	public PrincipioAtivo getPrinipioAtivo() {
+		return prinipioAtivo;
+	}
+
+	public void setPrinipioAtivo(PrincipioAtivo prinipioAtivo) {
+		this.prinipioAtivo = prinipioAtivo;
+	}	
 }

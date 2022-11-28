@@ -41,6 +41,15 @@
             				<li><a class="dropdown-item" href="principioAtivo.html">Princípio Ativo</a></li>
           				</ul>
         			</li>
+        			<li class="nav-item dropdown">
+        				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Relatórios</a>
+        				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            				<li><a class="dropdown-item" href="relatorio01.html">Relatório 1</a></li>
+            				<li><a class="dropdown-item" href="">Relatório 2</a></li>
+            				<li><a class="dropdown-item" href="">Relatório 3</a></li>
+            				<li><a class="dropdown-item" href="">Relatório 4</a></li>
+          				</ul>
+        			</li>
       			</ul>
     		</div>
   		</div>
@@ -51,25 +60,30 @@
 		<div class="w-100"></div>		
 		<form action="" id="formCadastroProduto" class="row justify-content-center">
 			<div class="col-md-1">
-	    		<label for="pro_cod" class="form-label">Código:</label>
+	    		<label for="pro_cod" class="form-label">Código</label>
     			<input type="text" class="form-control" id="pro_cod" readonly="readonly">
 			</div>
   			<div class="col-4">
-	    		<label for="pro_nome" class="form-label">Nome:</label>
+	    		<label for="pro_nome" class="form-label">Nome</label>
     			<input type="text" class="form-control" id="pro_nome" placeholder="Nome" required = "required">
 			</div>
   			<div class="w-100"></div>
-  			<div class="col-md-2">
-		    	<label for="pro_preco" class="form-label">Preço:</label>
+  			<div class="col-md-1">
+		    	<label for="pro_preco" class="form-label">Preço</label>
     			<input type="number" class="form-control" id="pro_preco" placeholder="Preço" required = "required">
   			</div>
-  			<div class="col-md-3">
+  			<div class="col-md-2">
 	    		<label for="pro_status" class="form-label">Status</label>
     			<select id="pro_status" class="form-select" required = "required">
 	      			<option value="A" selected>Ativo</option>
       				<option value="I">Inativo</option>
     			</select>
   			</div>
+  			<div class="col-2">
+	    		<label for="pro_principioativo" class="form-label">Princípio Ativo</label>
+    			<input type="number" class="form-control" id="pro_principioativo" required = "required" readonly="readonly">
+    			<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPesquisarPrincipioAtivo">Pesquisar</button>
+			</div>
   			<div class="w-100"></div>
   			<div class="col-md-3">
 	    		<label for="pro_tipmedicamento" class="form-label">Tipo de Medicamento</label>
@@ -79,6 +93,7 @@
       				<option value="G">Genérico</option>
     			</select>
   			</div>
+  			
   			<div class="col-md-2">
 	    		<label for="pro_tiptarja" class="form-label">Tarja</label>
     			<select id="pro_tiptarja" class="form-select" required = "required">
@@ -140,6 +155,41 @@
 		</div>
 	</div>
 	
+	<div class="modal" id="modalPesquisarPrincipioAtivo" tabindex="-1" aria-labelledby="Pesquisar Princípio Ativo" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisa de Princípio Ativo:</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+				</div>
+				<div class="modal-body">
+					<form>
+						<div class="mb-3">
+							<label for="nomePrincipioAtivoBusca" class="col-form-label">Informe o nome/descrição:</label> 
+							<input type="text" class="form-control" id="nomePrincipioAtivoBusca">
+						</div>
+						<button type="button" class="btn btn-success" onclick="buscarPrincipioAtivoPorNome()">Buscar</button>
+					</form>
+				</div>
+				<div style="height:300px; overflow:auto;">
+					<table class="table table-striped" id="tabelaresultados">
+						<thead>
+							<tr>
+								<th scope="col">Cód</th>
+								<th scope="col">Descrição</th>
+							</tr>
+						</thead>
+						<tbody>
+						</tbody>
+					</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
 	<script
   		src="https://code.jquery.com/jquery-3.6.1.min.js"
   		integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
@@ -162,6 +212,7 @@
 			var status = $("#pro_status").val();
 			var tipmedicamento = $("#pro_tipmedicamento").val();
 			var tiptarja = $("#pro_tiptarja").val();
+			var principioativo = $("#pro_principioativo").val();
 
 			if(nome == ""){
 				alert("Informe o nome do produto!");
@@ -180,11 +231,17 @@
 				$("#pro_descricao").focus();
 				return;	
 			}
+			
+			if(principioativo.length <= 0){
+				alert("necessário informar um Princípio Ativo!");
+				$("#pro_principioativo").focus();
+				return;	
+			}
 		
 			$.ajax({
 				method : "POST",
 				url : "salvarJSONProduto",
-				data : JSON.stringify({cod : cod, nome : nome, descricao : descricao, preco : preco, status : status, tipmedicamento : tipmedicamento, tiptarja: tiptarja}),
+				data : JSON.stringify({cod : cod, nome : nome, descricao : descricao, preco : preco, status : status, tipmedicamento : tipmedicamento, tiptarja: tiptarja, principioativo : principioativo}),
 				contentType : "application/json; charset=utf-8",
 				success : function(response){
 					$("#pro_cod").val(response.cod);
@@ -232,6 +289,7 @@
 						$("#pro_status").val(response.status);
 						$("#pro_tipmedicamento").val(response.tipmedicamento);
 						$("#pro_tiptarja").val(response.tiptarja);
+						$("#pro_principioativo").val(response.principioativo);
 						$('#modalPesquisarProduto').modal('hide');			  
 					}
 				}).fail(function(xhr, status, errorThrown) {
@@ -262,6 +320,42 @@
 			 document.getElementById('formCadastroProduto').reset();
 			}
 		}
+		
+		function buscarPrincipioAtivoPorNome(){
+			var nomePrincipioAtivoBusca = $("#nomePrincipioAtivoBusca").val();
+			if (nomePrincipioAtivoBusca != null && nomePrincipioAtivoBusca.trim()!= ''){
+				$.ajax({ 
+					method : "GET", 
+					url : "buscarPrincipioAtivoPorNome", 
+					data : "descricao=" + nomePrincipioAtivoBusca,
+					success : 
+					function(response){
+						$("#tabelaresultados > tbody > tr").remove();
+						for (var i = 0; i < response.length; i++){
+							$('#tabelaresultados > tbody').append('<tr cod="'+response[i].cod+'"><td>' + 
+									response[i].cod + '</td><td>' + 													
+									response[i].descricao +'</td><td> <button type="button" onclick="selecionarPrincipioAtivoProduto('+response[i].cod +')"class="btn btn-primary">+</button></td></tr>')					
+						}
+					}
+				}).fail(function (xhr, status, errorThrown){ 
+					alert("Erro ao buscar o Principio Ativo!"); 					
+				}); 
+			}		
+		}
+		
+		function selecionarPrincipioAtivoProduto(cod) {		  
+			  $.ajax({
+					method : "GET",
+					url : "buscarPrincipioAtivoId",
+					data : "idPrinAtivo=" + cod ,
+					success : function(response) {
+						$("#pro_principioativo").val(response.cod);
+						$('#modalPesquisarPrincipioAtivo').modal('hide');			  
+					}
+				}).fail(function(xhr, status, errorThrown) {
+					alert("Erro ao buscar Princípio Ativo pelo código!");
+				});		  
+		  }
 	</script>
 </body>
 </html>

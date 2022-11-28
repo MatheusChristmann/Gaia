@@ -38,6 +38,13 @@ public class GreetingsController {
         return "Hello World! Começa aqui o projeto Gaia...";
     }
 	
+	@GetMapping(value="listarProdutos")	
+	  @ResponseBody
+	public ResponseEntity<List<Produto>>listaProdutos(){
+	    List<Produto> produtos = produtoRepository.findAll();
+	    return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK) ;
+	}
+	
 	// ----- PRODUTO ----- //
     @Autowired
 	private ProdutoRepository produtoRepository;
