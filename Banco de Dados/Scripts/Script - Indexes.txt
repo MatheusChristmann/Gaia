@@ -6,12 +6,6 @@ on municipio(mun_estado);
 create index pro_principioativo_sk
 on produto(pro_principioativo);
 
-create index pro_tipmedicamento_sk
-on produto(pro_tipmedicamento);
-
-create index pro_tiptarja_sk
-on produto(pro_tiptarja);
-
 create index end_tipendereco_sk
 on endereco(end_tipendereco);
 

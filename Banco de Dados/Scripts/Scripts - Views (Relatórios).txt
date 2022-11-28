@@ -5,11 +5,17 @@
 /*• Relacionar o código, nome e tipo de todos os medicamentos. 
 	Ordene orelatório de forma ascendente pelo nome; */
 
+/* NECESSÁRIO TESTAR ESSE RELATÓRIO*/
+
 create view relatorio01_vw as  
 select 
 	produto.pro_cod,
 	produto.pro_nome,
-	produto.pro_tipmedicamento 
+	case produto.pro_tipmedicamento
+		when produto.pro_tipmedicamento = 'R' then 'Referência'
+		when produto.pro_tipmedicamento 'S' then 'Similar'
+	 	else 'Genérico'
+	end as Tipo_Medicamento
 from produto
 order by produto.pro_nome asc;
 

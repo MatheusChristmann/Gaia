@@ -53,28 +53,6 @@ comment on column principio_ativo.pra_descricao is 'Descrição/nome do princíp
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-create table tipo_medicamento(
-	tim_cod serial constraint tipo_medicamento_pk primary key,
-	tim_descricao varchar(20) not null
-);
- 
-comment on table tipo_medicamento is 'Cadastro de tipos de medicamentos.';
-comment on column tipo_medicamento.tim_cod is 'Código do tipo de medicamento.';
-comment on column tipo_medicamento.tim_descricao is 'Descrição do tipo de medicamento.';
-
------------------------------------------------------------------------------------------------------------------------------
-
-create table tipo_tarja(
-	tit_cod serial constraint tipo_tarja_pk primary key,
-	tit_descricao varchar(20) not null
-);
- 
-comment on table tipo_tarja is 'Cadastro de tipos de tarja.';
-comment on column tipo_tarja.tit_cod is 'Código do tipo de tarja.';
-comment on column tipo_tarja.tit_descricao is 'Descrição do tipo de tarja.';
-
------------------------------------------------------------------------------------------------------------------------------
-
 create table produto(
 	pro_cod serial constraint produto_pk primary key,
 	pro_nome varchar(40) not null,
@@ -82,8 +60,8 @@ create table produto(
 	pro_preco numeric(10,2) not null,
 	pro_status char(1) constraint pro_status_ck check (pro_status in ('A', 'I')) not null,	
 	pro_principioativo integer constraint pro_principio_ativo_fk references principio_ativo(pra_cod) not null,
-	pro_tipmedicamento integer constraint pro_tipo_medicamento_fk references tipo_medicamento(tim_cod) not null,
-	pro_tiptarja integer constraint pro_tipo_tarja_fk references tipo_tarja(tit_cod) not null
+	pro_tipmedicamento char(1) not null,
+	pro_tiptarja char(1) not null
 );
  
 comment on table produto is 'Cadastro de produtos/medicamentos.';
@@ -93,8 +71,8 @@ comment on column produto.pro_descricao is 'Descrição do produto.';
 comment on column produto.pro_preco is 'Preço de venda do produto.';
 comment on column produto.pro_status is 'Campo que indica se o cadastro do produto está inativo ou ativo (I = inativo, A = ativo).';
 comment on column produto.pro_principioativo is 'Princípio ativo do produto.';
-comment on column produto.pro_tipmedicamento is 'Tipo de medicamento do produto.';
-comment on column produto.pro_tiptarja is 'Tipo de tarja do produto.';
+comment on column produto.pro_tipmedicamento is 'Tipo de medicamento do produto. (R = Referência, S = Similar, G = Genérico).';
+comment on column produto.pro_tiptarja is 'Tipo de tarja do produto (S = Sem Tarja, A = Amarela, V = Vermelha, P = Preta).';
 
 -----------------------------------------------------------------------------------------------------------------------------
 

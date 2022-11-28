@@ -25,21 +25,6 @@ insert into tipo_endereco(ten_descricao) values
 
 -----------------------------------------------------------------------------------------------------------------------------
 
-insert into tipo_tarja(tit_descricao) values
-('Sem Tarja'),
-('Amarela'),
-('Vermelha'),
-('Preta');
-
------------------------------------------------------------------------------------------------------------------------------
-
-insert into tipo_medicamento(tim_descricao) values
-('Referência'),
-('Genérico'),
-('Similar');
-
------------------------------------------------------------------------------------------------------------------------------
-
 insert into principio_ativo(pra_descricao) values
 ('Aripiprazol'),
 ('Minoxidil'),
@@ -97,9 +82,9 @@ insert into funcionario values
 -----------------------------------------------------------------------------------------------------------------------------
 
 insert into produto(pro_nome, pro_descricao, pro_preco, pro_status, pro_principioativo, pro_tipmedicamento, pro_tiptarja) values
-('Produto 1', null, 10.0, 'A', 1, 1, 1),
-('Produto 2', null, 20.0, 'A', 2, 2, 2),
-('Produto 3', null, 30.0, 'A', 3, 3, 3);
+('Produto 1', null, 10.0, 'A', 1, 'G', 'S'),
+('Produto 2', null, 20.0, 'A', 2, 'S', 'V'),
+('Produto 3', null, 30.0, 'A', 3, 'R', 'P');
 
 -----------------------------------------------------------------------------------------------------------------------------
 

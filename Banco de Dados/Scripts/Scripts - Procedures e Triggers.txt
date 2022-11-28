@@ -46,16 +46,6 @@ after insert or update or delete on produto
 for each row execute procedure func_auditoria();
 
 
-create trigger tipomedicamento_audit_trig
-after insert or update or delete on tipo_medicamento
-for each row execute procedure func_auditoria();
-
-
-create trigger tipotarja_audit_trig
-after insert or update or delete on tipo_tarja
-for each row execute procedure func_auditoria();
-
-
 create trigger pessoa_audit_trig
 after insert or update or delete on pessoa
 for each row execute procedure func_auditoria();

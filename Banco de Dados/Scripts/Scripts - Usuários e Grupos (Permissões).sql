@@ -56,7 +56,7 @@ to atendente;
 grant select, insert on venda, venda_item
 to atendente;
 
-grant select on produto, tipo_medicamento, tipo_tarja, principio_ativo
+grant select on produto, principio_ativo
 to atendente;
 
 grant select, insert, delete on notificacao_compra
@@ -89,9 +89,6 @@ to comprador;
 grant select on tipo_pagamento
 to comprador;
 
-grant select on tipo_medicamento, tipo_tarja
-to comprador;
-
 -----------------------------------------------------------------------------------------------------------------------------
 
 /* ATRIBUIÇÃO DE GRUPOS E PERMISSÕES PARA OS USUÁRIOS */
@@ -112,8 +109,6 @@ estado,
 municipio,
 principio_ativo,
 produto,
-tipo_medicamento,
-tipo_tarja,
 pessoa,
 tipo_endereco,
 endereco,
