@@ -48,7 +48,7 @@ public class Produto implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name="pro_principioativo", nullable = true)
-	PrincipioAtivo prinipioAtivo;
+	PrincipioAtivo principioAtivo;
 
 	// ----- GETTERS and SETTERS ----- //
 	

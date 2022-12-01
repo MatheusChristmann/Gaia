@@ -88,9 +88,9 @@
   			<div class="col-md-3">
 	    		<label for="pro_tipmedicamento" class="form-label">Tipo de Medicamento</label>
     			<select id="pro_tipmedicamento" class="form-select" required = "required">
-      				<option value="R" selected>Referência</option>
-      				<option value="S">Similar</option>
-      				<option value="G">Genérico</option>
+      				<option value="REFERENCIA" selected>Referência</option>
+      				<option value="SIMILAR">Similar</option>
+      				<option value="GENERICO">Genérico</option>
     			</select>
   			</div>
   			
@@ -213,7 +213,7 @@
 			var tipmedicamento = $("#pro_tipmedicamento").val();
 			var tiptarja = $("#pro_tiptarja").val();
 			var principioativo = $("#pro_principioativo").val();
-
+			
 			if(nome == ""){
 				alert("Informe o nome do produto!");
 				$("#pro_nome").focus();
@@ -241,7 +241,7 @@
 			$.ajax({
 				method : "POST",
 				url : "salvarJSONProduto",
-				data : JSON.stringify({cod : cod, nome : nome, descricao : descricao, preco : preco, status : status, tipmedicamento : tipmedicamento, tiptarja: tiptarja, principioativo : principioativo}),
+				data : JSON.stringify({cod: cod, nome: nome, descricao: descricao, preco: preco, status: status, tipmedicamento: tipmedicamento, tiptarja: tiptarja, principioativo: principioativo}),
 				contentType : "application/json; charset=utf-8",
 				success : function(response){
 					$("#pro_cod").val(response.cod);

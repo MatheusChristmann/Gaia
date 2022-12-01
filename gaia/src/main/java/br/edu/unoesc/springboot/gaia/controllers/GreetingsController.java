@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.edu.unoesc.springboot.gaia.enums.TipoMedicamento;
 import br.edu.unoesc.springboot.gaia.model.PrincipioAtivo;
 import br.edu.unoesc.springboot.gaia.model.Produto;
 import br.edu.unoesc.springboot.gaia.repository.PrincipioAtivoRepository;
