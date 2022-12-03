@@ -95,7 +95,7 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="limparPesquisa()">Fechar</button>
 				</div>
 			</div>
 		</div>
@@ -178,8 +178,15 @@
 					}
 				}).fail(function(xhr, status, errorThrown) {
 					alert("Erro ao buscar Princípio Ativo pelo código!");
-				});		  
+				});	
+			  
+			  limparPesquisa();
 		  }
+		
+		function limparPesquisa(){
+			$("#nomePrincipioAtivoBusca").val("");
+			$("#tabelaresultados > tbody > tr").remove();
+		}
 	</script>
 </body>
 </html>

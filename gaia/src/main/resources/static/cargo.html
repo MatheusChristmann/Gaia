@@ -82,8 +82,8 @@
 				<div class="modal-body">
 					<form>
 						<div class="mb-3">
-							<label for="nomeCargoBusca" class="col-form-label">Informe o Nome/Descrição:</label> 
-							<input type="text" class="form-control" id="nomeCargoBusca">
+							<label for="descricaoCargoBusca" class="col-form-label">Informe o Nome/Descrição:</label> 
+							<input type="text" class="form-control" id="descricaoCargoBusca">
 						</div>
 						<button type="button" class="btn btn-warning" onclick="buscarCargoPorDescricao()">Buscar</button>
 					</form>
@@ -102,7 +102,7 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="limparPesquisa()">Fechar</button>
 				</div>
 			</div>
 		</div>
@@ -159,12 +159,12 @@
 		}	
 		
 		function buscarCargoPorDescricao(){
-			var descricaoCargoBusca = $("#descricaoCargoBusca").val();
-			if (descricaoCargoBusca != null && descricaoCargoBusca.trim()!= ''){
+			var descricaoCargo = $("#descricaoCargoBusca").val();
+			if (descricaoCargo != null && descricaoCargo.trim()!= ''){
 				$.ajax({ 
 					method : "GET", 
 					url : "buscarCargoPorDescricao", 
-					data : "descricao=" + descricaoCargoBusca,
+					data : "descricao=" + descricaoCargo,
 					success : 
 					function(response){
 						$("#tabelaresultados > tbody > tr").remove();
@@ -190,12 +190,19 @@
 						$("#car_cod").val(response.cod);
 						$("#car_descricao").val(response.descricao);
 						$("#car_salario").val(response.salario);
-						$('#modalPesquisarCargo').modal('hide');			  
+						$('#modalPesquisarCargo').modal('hide');
+						
+						limparPesquisa();					
 					}
 				}).fail(function(xhr, status, errorThrown) {
 					alert("Erro ao buscar o Cargo pelo código!");
 				});		  
 		  }
+		
+		function limparPesquisa(){
+			$("#descricaoCargoBusca").val("");
+			$("#tabelaresultados > tbody > tr").remove();
+		}
 	</script>
 		
 </body>

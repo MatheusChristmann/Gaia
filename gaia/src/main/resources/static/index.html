@@ -69,8 +69,8 @@
       				<option value="I">Inativo</option>
     			</select>
   			</div>
-  			<div class="col-2">
-	    		<label for="pro_principioativo" class="form-label">Princípio Ativo</label>
+  			<div class="col-1">
+	    		<label for="pro_principioativo" class="form-label">P. Ativo</label>
     			<input type="number" class="form-control" id="pro_principioativo" required = "required" readonly="readonly">
     		</div>
     		<div class="col-1"><br>	
@@ -143,7 +143,7 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="limparPesquisa()">Fechar</button>
 				</div>
 			</div>
 		</div>
@@ -178,7 +178,7 @@
 					</table>
 				</div>
 				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+					<button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="limparPesquisa()">Fechar</button>
 				</div>
 			</div>
 		</div>
@@ -285,10 +285,11 @@
 						$("#pro_tiptarja").val(response.tiptarja);
 						$("#pro_principioativo").val(response.principioativo);
 						$('#modalPesquisarProduto').modal('hide');			  
-					}
+					}			 			  
 				}).fail(function(xhr, status, errorThrown) {
 					alert("Erro ao buscar produto por id!");
-				});		  
+				});		  			  
+			  limparPesquisa();
 		  }
 		
 		function excluirProduto(cod){		
@@ -330,7 +331,7 @@
 									response[i].cod + '</td><td>' + 													
 									response[i].descricao +'</td><td> <button type="button" onclick="selecionarPrincipioAtivoProduto('+response[i].cod +')"class="btn btn-primary">Ver</button></td></tr>')					
 						}
-					}
+					}												
 				}).fail(function (xhr, status, errorThrown){ 
 					alert("Erro ao buscar o Principio Ativo!"); 					
 				}); 
@@ -348,8 +349,16 @@
 					}
 				}).fail(function(xhr, status, errorThrown) {
 					alert("Erro ao buscar Princípio Ativo pelo código!");
-				});		  
+				});	
+			  
+			  limparPesquisa();			 
 		  }
+		
+		function limparPesquisa(){
+			$("#nomeProdutoBusca").val("");
+			$("#nomePrincipioAtivoBusca").val("");
+			$("#tabelaresultados > tbody > tr").remove();
+		}
 	</script>
 </body>
 </html>
