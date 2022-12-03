@@ -37,7 +37,7 @@ public class Produto implements Serializable{
 	
 	@Column(name="pro_status", length = 1, nullable = false, columnDefinition = "char(1)")
 	private Character status;
-	
+		
 	@Column(name="pro_tipmedicamento", length = 1, nullable = true, columnDefinition = "char(1)")
 	@Enumerated(EnumType.STRING)
 	private TipoMedicamento tipoMedicamento;
@@ -52,14 +52,6 @@ public class Produto implements Serializable{
 
 	// ----- GETTERS and SETTERS ----- //
 	
-	public Long getCod() {
-		return cod;
-	}
-
-	public void setCod(Long cod) {
-		this.cod = cod;
-	}
-
 	public String getNome() {
 		return nome;
 	}
@@ -74,14 +66,6 @@ public class Produto implements Serializable{
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
-	}
-
-	public Double getPreco() {
-		return preco;
-	}
-
-	public void setPreco(Double preco) {
-		this.preco = preco;
 	}
 
 	public Character getStatus() {
@@ -108,11 +92,19 @@ public class Produto implements Serializable{
 		this.tipoTarja = tipoTarja;
 	}
 
-	public PrincipioAtivo getPrinipioAtivo() {
-		return prinipioAtivo;
+	public PrincipioAtivo getPrincipioAtivo() {
+		return principioAtivo;
 	}
 
-	public void setPrinipioAtivo(PrincipioAtivo prinipioAtivo) {
-		this.prinipioAtivo = prinipioAtivo;
+	public void setPrincipioAtivo(PrincipioAtivo principioAtivo) {
+		this.principioAtivo = principioAtivo;
+	}
+
+	public Long getCod() {
+		return cod;
+	}
+
+	public Double getPreco() {
+		return preco;
 	}	
 }

@@ -25,7 +25,7 @@
 <body>
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   		<div class="container-fluid">
-    		<a class="navbar-brand" href="#">Home</a>
+    		<img src="./images/iconPage.png" alt="" width="30" height="24" class="d-inline-block align-text-top">
     		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
     				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       			<span class="navbar-toggler-icon"></span>
@@ -33,21 +33,11 @@
     		<div class="collapse navbar-collapse" id="navbarSupportedContent">
       			<ul class="navbar-nav me-auto mb-2 mb-lg-0">
         			<li class="nav-item dropdown">
-          				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            				Cadastros
-          				</a>
+          				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
           				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            				<li><a class="dropdown-item" href=""> Produtos</a></li>
+            				<li><a class="dropdown-item" href="">Produtos</a></li>
             				<li><a class="dropdown-item" href="principioAtivo.html">Princípio Ativo</a></li>
-          				</ul>
-        			</li>
-        			<li class="nav-item dropdown">
-        				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Relatórios</a>
-        				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            				<li><a class="dropdown-item" href="relatorio01.html">Relatório 1</a></li>
-            				<li><a class="dropdown-item" href="">Relatório 2</a></li>
-            				<li><a class="dropdown-item" href="">Relatório 3</a></li>
-            				<li><a class="dropdown-item" href="">Relatório 4</a></li>
+            				<li><a class="dropdown-item" href="cargo.html">Cargos</a></li>
           				</ul>
         			</li>
       			</ul>
@@ -56,7 +46,7 @@
 	</nav>
 	
 	<div class="formCadastroProduto row justify-content-center">
-		<h2 class="col-md-3">Produtos</h2><br>
+		<h2 class="col-md-5">Produtos</h2><br>
 		<div class="w-100"></div>		
 		<form action="" id="formCadastroProduto" class="row justify-content-center">
 			<div class="col-md-1">
@@ -67,7 +57,7 @@
 	    		<label for="pro_nome" class="form-label">Nome</label>
     			<input type="text" class="form-control" id="pro_nome" placeholder="Nome" required = "required">
 			</div>
-  			<div class="w-100"></div>
+  			<div class="w-100"><br></div>
   			<div class="col-md-1">
 		    	<label for="pro_preco" class="form-label">Preço</label>
     			<input type="number" class="form-control" id="pro_preco" placeholder="Preço" required = "required">
@@ -82,15 +72,17 @@
   			<div class="col-2">
 	    		<label for="pro_principioativo" class="form-label">Princípio Ativo</label>
     			<input type="number" class="form-control" id="pro_principioativo" required = "required" readonly="readonly">
-    			<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPesquisarPrincipioAtivo">Pesquisar</button>
+    		</div>
+    		<div class="col-1"><br>	
+    			<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalPesquisarPrincipioAtivo">+</button>
 			</div>
-  			<div class="w-100"></div>
+  			<div class="w-100"><br></div>
   			<div class="col-md-3">
 	    		<label for="pro_tipmedicamento" class="form-label">Tipo de Medicamento</label>
     			<select id="pro_tipmedicamento" class="form-select" required = "required">
-      				<option value="REFERENCIA" selected>Referência</option>
-      				<option value="SIMILAR">Similar</option>
-      				<option value="GENERICO">Genérico</option>
+      				<option value="R" selected>Referência</option>
+      				<option value="S">Similar</option>
+      				<option value="G">Genérico</option>
     			</select>
   			</div>
   			
@@ -103,17 +95,19 @@
       				<option value="P">Preta</option>
     			</select>
   			</div>
-  			<div class="w-100"></div>
+  			<div class="w-100"><br></div>
   			<div class="col-md-5">
   				<label for="pro_descricao" class="form-label">Descrição:</label>
   				<textarea class="form-control" id="pro_descricao" rows="3"></textarea>
 			</div>
   			<div class="w-100"></div><br>
-  			<div class="buttons col-md-5">
-	    		<button type="button" class="btn btn-primary" onclick="salvarProduto()">Salvar</button>
-    			<button type="button" class="btn btn-secondary" onclick ="document.getElementById('formCadastroProduto').reset();">Adicionar</button>
-				<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#modalPesquisarProduto">Pesquisar</button>	
-				<button type="button" class="btn btn-danger" onclick="excluirProdutoBotao()">Excluir</button>	
+  			<div class="buttons col-md-4">	    		
+    			<button type="button" class="btn btn-primary" onclick ="document.getElementById('formCadastroProduto').reset();">Novo</button>
+    			<button type="button" class="btn btn-success" onclick="salvarProduto()">Salvar</button>
+    			<button type="button" class="btn btn-danger" onclick="excluirProdutoBotao()">Excluir</button>
+    		</div>	
+			<div class="buttons col-md-1">	
+				<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalPesquisarProduto">Pesquisar</button>						
   			</div>
   		</form>
 	</div>
@@ -128,10 +122,10 @@
 				<div class="modal-body">
 					<form>
 						<div class="mb-3">
-							<label for="nomeProdutoBusca" class="col-form-label">Informe o nome:</label> 
+							<label for="nomeProdutoBusca" class="col-form-label">Informe o Nome:</label> 
 							<input type="text" class="form-control" id="nomeProdutoBusca">
 						</div>
-						<button type="button" class="btn btn-success" onclick="buscarProdutoPorNome()">Buscar</button>
+						<button type="button" class="btn btn-warning" onclick="buscarProdutoPorNome()">Buscar</button>
 					</form>
 				</div>
 				<div style="height:300px; overflow:auto;">
@@ -165,10 +159,10 @@
 				<div class="modal-body">
 					<form>
 						<div class="mb-3">
-							<label for="nomePrincipioAtivoBusca" class="col-form-label">Informe o nome/descrição:</label> 
+							<label for="nomePrincipioAtivoBusca" class="col-form-label">Informe o Nome/Descrição:</label> 
 							<input type="text" class="form-control" id="nomePrincipioAtivoBusca">
 						</div>
-						<button type="button" class="btn btn-success" onclick="buscarPrincipioAtivoPorNome()">Buscar</button>
+						<button type="button" class="btn btn-warning" onclick="buscarPrincipioAtivoPorNome()">Buscar</button>
 					</form>
 				</div>
 				<div style="height:300px; overflow:auto;">
@@ -267,7 +261,7 @@
 									response[i].cod + '</td><td>' + 
 									response[i].nome + '</td><td>' +
 									response[i].preco + '</td><td>' +
-									response[i].status +'</td><td> <button type="button" onclick="colocarProdutoEmEdicao('+response[i].cod +')"class="btn btn-primary">+</button></td> <td><button type="button" class="btn btn-danger" onclick="excluirProduto('+response[i].cod+')">x</button></td></tr>')					
+									response[i].status +'</td><td> <button type="button" onclick="colocarProdutoEmEdicao('+response[i].cod +')"class="btn btn-primary">Ver</button></td> <td><button type="button" class="btn btn-danger" onclick="excluirProduto('+response[i].cod+')">Deletar</button></td></tr>')					
 						}
 					}
 				}).fail(function (xhr, status, errorThrown){ 
@@ -334,7 +328,7 @@
 						for (var i = 0; i < response.length; i++){
 							$('#tabelaresultados > tbody').append('<tr cod="'+response[i].cod+'"><td>' + 
 									response[i].cod + '</td><td>' + 													
-									response[i].descricao +'</td><td> <button type="button" onclick="selecionarPrincipioAtivoProduto('+response[i].cod +')"class="btn btn-primary">+</button></td></tr>')					
+									response[i].descricao +'</td><td> <button type="button" onclick="selecionarPrincipioAtivoProduto('+response[i].cod +')"class="btn btn-primary">Ver</button></td></tr>')					
 						}
 					}
 				}).fail(function (xhr, status, errorThrown){ 

@@ -16,9 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.edu.unoesc.springboot.gaia.enums.TipoMedicamento;
+import br.edu.unoesc.springboot.gaia.model.Cargo;
 import br.edu.unoesc.springboot.gaia.model.PrincipioAtivo;
 import br.edu.unoesc.springboot.gaia.model.Produto;
+import br.edu.unoesc.springboot.gaia.repository.CargoRepository;
 import br.edu.unoesc.springboot.gaia.repository.PrincipioAtivoRepository;
 import br.edu.unoesc.springboot.gaia.repository.ProdutoRepository;
 
@@ -52,8 +53,8 @@ public class GreetingsController {
     
 	@PostMapping(value = "salvarJSONProduto")
     @ResponseBody
-    public ResponseEntity<Produto> salvarJSONProduto(@RequestBody Produto produto){
-    	Produto prod = produtoRepository.save(produto);
+    public ResponseEntity<Produto> salvarJSONProduto(@RequestBody Produto produto){	
+		Produto prod = produtoRepository.save(produto);    	    	
     	return new ResponseEntity<Produto>(prod, HttpStatus.CREATED);
     }
 	
@@ -66,8 +67,8 @@ public class GreetingsController {
 	
 	@GetMapping(value = "buscarProdutoId")
 	@ResponseBody
-	public ResponseEntity<Produto> buscarProdutoId(@RequestParam(name = "idProduto") Long idProduto){
-		Produto produto = produtoRepository.findById(idProduto).get();
+	public ResponseEntity<Produto> buscarProdutoId(@RequestParam(name = "idProduto") Long idProduto){	
+		Produto produto = produtoRepository.findById(idProduto).get();			
 		return new ResponseEntity<Produto>(produto, HttpStatus.OK);
 	}		
 	
@@ -101,5 +102,30 @@ public class GreetingsController {
 	public ResponseEntity<List<PrincipioAtivo>>buscarPrincipioAtivoPorNome(@RequestParam(name = "descricao") String descricao){
 		List<PrincipioAtivo> pAtivo = principioAtivoRepository.buscarPrincipioAtivoPorNome(descricao.trim().toUpperCase());
 		return new ResponseEntity<List<PrincipioAtivo>>(pAtivo, HttpStatus.OK);
+	}
+	
+	// ----- CARGO ----- //
+	@Autowired	
+	private CargoRepository cargoRepository;
+		
+	@PostMapping(value = "salvarJSONCargo")
+	@ResponseBody
+	public ResponseEntity<Cargo> salvarJSONCargo(@RequestBody Cargo cargo){
+		Cargo vCargo = cargoRepository.save(cargo);
+	    return new ResponseEntity<Cargo>(vCargo, HttpStatus.CREATED);
+	}
+			
+	@GetMapping(value = "buscarCargoId")
+	@ResponseBody
+	public ResponseEntity<Cargo> buscarCargoId(@RequestParam(name = "idCargo") Long idCargo){
+		Cargo vCargo = cargoRepository.findById(idCargo).get();
+		return new ResponseEntity<Cargo>(vCargo, HttpStatus.OK);
+	}		
+		
+	@GetMapping(value = "buscarCargoPorDescricao")
+	@ResponseBody
+	public ResponseEntity<List<Cargo>>buscarCargoPorDescricao(@RequestParam(name = "descricao") String descricao){
+		List<Cargo> vCargo = cargoRepository.buscarCargoPorDescricao(descricao.trim().toUpperCase());
+		return new ResponseEntity<List<Cargo>>(vCargo, HttpStatus.OK);
 	}
 }

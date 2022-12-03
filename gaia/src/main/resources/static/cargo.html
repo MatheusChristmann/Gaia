@@ -16,9 +16,10 @@
 	
 	<style>
 		:root{
-			--bs-body-bg:#DCDCDC;
+			--bs-body-bg: #DCDCDC;
 		}			
-	</style>	
+	</style>
+	
 </head>
 
 <body>
@@ -35,8 +36,8 @@
           				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Cadastros</a>
           				<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             				<li><a class="dropdown-item" href="index.html">Produtos</a></li>
-            				<li><a class="dropdown-item" href="">Princípio Ativo</a></li>
-            				<li><a class="dropdown-item" href="cargo.html">Cargos</a></li>
+            				<li><a class="dropdown-item" href="principioAtivo.html">Princípio Ativo</a></li>
+            				<li><a class="dropdown-item" href="">Cargos</a></li>
           				</ul>
         			</li>
       			</ul>
@@ -44,42 +45,47 @@
   		</div>
 	</nav>
 	
-	<div class="formCadastroPrincipioAtivo row justify-content-center">
-		<h2 class="col-md-5">Princípio Ativo</h2><br>
-		<form action="" id="formCadastroPrincipioAtivo" class="row justify-content-center">
+	<div class="formCadastroCargo row justify-content-center">
+		<h2 class="col-md-5">Cargos</h2><br>
+		<form action="" id="formCadastroCargo" class="row justify-content-center">
 			<div class="col-md-1">
-	    		<label for="pra_cod" class="form-label">Código:</label>
-    			<input type="text" class="form-control" id="pra_cod" readonly="readonly">
+	    		<label for="car_cod" class="form-label">Código:</label>
+    			<input type="text" class="form-control" id="car_cod" readonly="readonly">
 			</div>
   			<div class="col-4">
-	    		<label for="pra_descricao" class="form-label">Descrição:</label>
-    			<input type="text" class="form-control" id="pra_descricao" placeholder="Descrição" required = "required">
+	    		<label for="car_descricao" class="form-label">Descrição:</label>
+    			<input type="text" class="form-control" id="car_descricao" placeholder="Descrição" required = "required">
 			</div>
   			<div class="w-100"></div><br>
+  			<div class="col-5">
+	    		<label for="car_salario" class="form-label">Salário:</label>
+    			<input type="number" class="form-control" id="car_salario" placeholder="Salário" required = "required">
+			</div>
+			<div class="w-100"></div><br>
   			<div class="buttons col-md-4">	    		
-    			<button type="button" class="btn btn-primary" onclick ="document.getElementById('formCadastroPrincipioAtivo').reset();">Novo</button>
-				<button type="button" class="btn btn-success" onclick="salvarPrincipioAtivo()">Gravar</button>
+    			<button type="button" class="btn btn-primary" onclick ="document.getElementById('formCadastroCargo').reset();">Novo</button>
+				<button type="button" class="btn btn-success" onclick="salvarCargo()">Gravar</button>
 			</div>		
 			<div class="buttons col-md-1">
-				<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalPesquisarPrincipioAtivo">Pesquisar</button>
+				<button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modalPesquisarCargo">Pesquisar</button>
   			</div>
   		</form>
 	</div>
-  	
-  	<div class="modal" id="modalPesquisarPrincipioAtivo" tabindex="-1" aria-labelledby="Pesquisar Princípio Ativo" aria-hidden="true">
+	
+	<div class="modal" id="modalPesquisarCargo" tabindex="-1" aria-labelledby="Pesquisar Cargo" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Pesquisa de Princípio Ativo:</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Pesquisa de Cargo:</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
 				</div>
 				<div class="modal-body">
 					<form>
 						<div class="mb-3">
-							<label for="nomePrincipioAtivoBusca" class="col-form-label">Informe o Nome/Descrição:</label> 
-							<input type="text" class="form-control" id="nomePrincipioAtivoBusca">
+							<label for="nomeCargoBusca" class="col-form-label">Informe o Nome/Descrição:</label> 
+							<input type="text" class="form-control" id="nomeCargoBusca">
 						</div>
-						<button type="button" class="btn btn-warning" onclick="buscarPrincipioAtivoPorNome()">Buscar</button>
+						<button type="button" class="btn btn-warning" onclick="buscarCargoPorDescricao()">Buscar</button>
 					</form>
 				</div>
 				<div style="height:300px; overflow:auto;">
@@ -88,6 +94,7 @@
 							<tr>
 								<th scope="col">Cód</th>
 								<th scope="col">Descrição</th>
+								<th scope="col">Salário</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -100,7 +107,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script
   		src="https://code.jquery.com/jquery-3.6.1.min.js"
   		integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ="
@@ -113,73 +120,83 @@
 		integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
 		crossorigin="anonymous">
 	</script>
-		
+	
 	<script type="text/javascript">
-		function salvarPrincipioAtivo(){
-			var cod = $("#pra_cod").val();
-			var descricao = $("#pra_descricao").val();
+		function salvarCargo(){
+			var cod = $("#car_cod").val();
+			var descricao = $("#car_descricao").val();
+			var salario = $("#car_salario").val();
 
 			if(descricao == ""){
-				alert("Informe a descrição do princípio ativo!");
-				$("#pra_descricao").focus();
+				alert("Informe a descrição do cargo!");
+				$("#car_descricao").focus();
 				return;
 			}
-			else if(descricao.length > 40){
-				alert("Descrição muito grande! Máximo de 40 caracteres!");
-				$("#pra_descricao").focus();
+			else if(descricao.length > 50){
+				alert("Descrição muito grande! Máximo de 50 caracteres!");
+				$("#car_descricao").focus();
 				return;
+			}
+			
+			if(descricao <= 0){
+				alert("Verifique o valor do salário!");
+				$("#car_salario").focus();
+				return;	
 			}
 					
 			$.ajax({
 				method : "POST",
-				url : "salvarJSONPrincipioAtivo",
-				data : JSON.stringify({cod : cod, descricao : descricao}),
+				url : "salvarJSONCargo",
+				data : JSON.stringify({cod : cod, descricao : descricao, salario: salario}),
 				contentType : "application/json; charset=utf-8",
 				success : function(response){
-					$("#pra_cod").val(response.cod);
-					alert("Princípio Ativo salvo com sucesso!");
+					$("#car_cod").val(response.cod);
+					alert("Cargo salvo com sucesso!");
 				}
 			}).fail(function (xhr, status, errorThrown){
-				alert("Erro ao salvar o Princípio Ativo!");
+				alert("Erro ao salvar o Cargo!");
 			});	
 		}	
 		
-		function buscarPrincipioAtivoPorNome(){
-			var nomePrincipioAtivoBusca = $("#nomePrincipioAtivoBusca").val();
-			if (nomePrincipioAtivoBusca != null && nomePrincipioAtivoBusca.trim()!= ''){
+		function buscarCargoPorDescricao(){
+			var descricaoCargoBusca = $("#descricaoCargoBusca").val();
+			if (descricaoCargoBusca != null && descricaoCargoBusca.trim()!= ''){
 				$.ajax({ 
 					method : "GET", 
-					url : "buscarPrincipioAtivoPorNome", 
-					data : "descricao=" + nomePrincipioAtivoBusca,
+					url : "buscarCargoPorDescricao", 
+					data : "descricao=" + descricaoCargoBusca,
 					success : 
 					function(response){
 						$("#tabelaresultados > tbody > tr").remove();
 						for (var i = 0; i < response.length; i++){
 							$('#tabelaresultados > tbody').append('<tr cod="'+response[i].cod+'"><td>' + 
 									response[i].cod + '</td><td>' + 													
-									response[i].descricao +'</td><td> <button type="button" onclick="colocarPrincipioAtivoEmEdicao('+response[i].cod +')"class="btn btn-primary">Ver</button></td></tr>')					
+									response[i].descricao +'</td><td>' +
+									response[i].salario +'</td><td> <button type="button" onclick="colocarCargoEmEdicao('+response[i].cod +')"class="btn btn-primary">Ver</button></td></tr>')
 						}
 					}
 				}).fail(function (xhr, status, errorThrown){ 
-					alert("Erro ao buscar o Principio Ativo!"); 					
+					alert("Erro ao buscar o Cargo!"); 					
 				}); 
 			}		
 		}
 		
-		function colocarPrincipioAtivoEmEdicao(cod) {		  
+		function colocarCargoEmEdicao(cod) {		  
 			  $.ajax({
 					method : "GET",
-					url : "buscarPrincipioAtivoId",
-					data : "idPrinAtivo=" + cod ,
+					url : "buscarCargoId",
+					data : "idCargo=" + cod ,
 					success : function(response) {
-						$("#pra_cod").val(response.cod);
-						$("#pra_descricao").val(response.descricao);
-						$('#modalPesquisarPrincipioAtivo').modal('hide');			  
+						$("#car_cod").val(response.cod);
+						$("#car_descricao").val(response.descricao);
+						$("#car_salario").val(response.salario);
+						$('#modalPesquisarCargo').modal('hide');			  
 					}
 				}).fail(function(xhr, status, errorThrown) {
-					alert("Erro ao buscar Princípio Ativo pelo código!");
+					alert("Erro ao buscar o Cargo pelo código!");
 				});		  
 		  }
 	</script>
+		
 </body>
 </html>
