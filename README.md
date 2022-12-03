@@ -43,6 +43,7 @@ O Sistema Gaia se trata de um projeto avaliativo para a matérias de Banco de Da
 - PostgreSQL
 - DBeaver
 - WPS Office
+- Eclipse
 
 #
 
