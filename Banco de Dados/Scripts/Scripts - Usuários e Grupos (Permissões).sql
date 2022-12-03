@@ -96,32 +96,11 @@ to comprador;
 alter database "gaiadb" owner to gaiadba;
 
 grant gerente to otilia, roberson, franciele, jean;
+grant atendente to otilia, roberson, franciele, jean;
+grant comprador to otilia, roberson, franciele, jean;
 
 grant atendente to matheus;
 
 grant comprador to michell;
 
 -----------------------------------------------------------------------------------------------------------------------------
-
-/*
- Lista de Tabelas:
-estado,
-municipio,
-principio_ativo,
-produto,
-pessoa,
-tipo_endereco,
-endereco,
-pesfisica,
-pesjuridica,
-cargo,
-funcionario,
-notificacao_compra,
-produto_movimento,
-venda,
-tipo_pagamento,
-venda_item,
-compra,
-compra_item,
-auditoria,
-*/

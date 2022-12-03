@@ -325,6 +325,6 @@ comment on column auditoria.aud_cod is 'Código da auditoria.';
 comment on column auditoria.aud_tabela is 'Nome da tabela que sofreu inclusão, exclusão ou alteração.';
 comment on column auditoria.aud_usuario is 'Nome do usuário que realizou a inclusão, exclusão ou alteração.';
 comment on column auditoria.aud_data is 'Data e hora em que foi realizada a inclusão, exclusão ou alteração.';
-comment on column auditoria.aud_operacao is 'Operação que foi realizada na tabela (I = Inclusão, E = Exclusão, A = Alteração).';
+comment on column auditoria.aud_operacao is 'Operação que foi realizada na tabela (I = Inclusão, D = Deleção, A = Alteração).';
 comment on column auditoria.aud_regnew is 'Registro novo na tabela.';
 comment on column auditoria.aud_regold is 'Registro antigo na tabela.';

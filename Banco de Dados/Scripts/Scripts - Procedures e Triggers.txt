@@ -8,7 +8,7 @@ $body$
 begin
  	if (tg_op = 'DELETE') then
  		insert into auditoria(aud_tabela, aud_usuario, aud_data, aud_operacao, aud_regold)
- 			select tg_relname, user, current_timestamp, 'E', old::text;
+ 			select tg_relname, user, current_timestamp, 'D', old::text;
 		return old;
  	elsif (tg_op = 'UPDATE') then
  		insert into auditoria(aud_tabela, aud_usuario, aud_data, aud_operacao, aud_regnew, aud_regold) 
@@ -152,7 +152,8 @@ begin
  		insert into produto_movimento(mov_data, mov_pessoa, mov_produto, mov_qtd_produto) -- Insere o registro na tabela
  			select current_timestamp, pessoa, new.vei_produto, -new.vei_qtd_item; --Lança um valor negativo na tabela pois é uma saída de estoque
  			
-		return new;		
+		return new;	
+	
 	elsif (tg_op = 'DELETE') then
 		select venda.ven_pessoa into pessoa from venda inner join venda_item on (venda.ven_numero = old.vei_numvenda); -- Busca a Pessoa envolvida na Movimentação
 	
@@ -185,7 +186,8 @@ begin
  		insert into produto_movimento(mov_data, mov_pessoa, mov_produto, mov_qtd_produto) -- Insere o registro na tabela
  			select current_timestamp, pessoa, new.coi_produto, new.coi_qtd_item; --Lança um valor positivo na tabela pois é uma entrada de estoque
  		
-		return new;		
+		return new;	
+	
 	elsif (tg_op = 'DELETE') then
 		select compra.com_pessoa into pessoa from compra inner join compra_item on (compra.com_numero = old.coi_numcompra); -- Busca a Pessoa envolvida na Movimentação
 	

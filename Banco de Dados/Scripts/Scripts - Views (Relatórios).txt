@@ -5,15 +5,13 @@
 /*• Relacionar o código, nome e tipo de todos os medicamentos. 
 	Ordene orelatório de forma ascendente pelo nome; */
 
-/* NECESSÁRIO TESTAR ESSE RELATÓRIO*/
-
 create view relatorio01_vw as  
 select 
 	produto.pro_cod,
 	produto.pro_nome,
 	case produto.pro_tipmedicamento
-		when produto.pro_tipmedicamento = 'R' then 'Referência'
-		when produto.pro_tipmedicamento 'S' then 'Similar'
+		when 'R' then 'Referência'
+		when 'S' then 'Similar'
 	 	else 'Genérico'
 	end as Tipo_Medicamento
 from produto
@@ -31,9 +29,12 @@ select distinct
 from produto
 inner join produto_movimento on (produto_movimento.mov_produto = produto.pro_cod and produto_movimento.mov_qtd_produto > 0)
 inner join pessoa on (pessoa.pes_cod = produto_movimento.mov_pessoa)
-where --produto.pro_quantidade > 10
---and 
-pessoa.pes_tipo = 'J'
+where produto.pro_cod in (select 
+							  mov_produto
+						  from produto_movimento 
+						  group by mov_produto
+						  having sum(mov_qtd_produto) > 10)
+and pessoa.pes_tipo = 'J'
 order by pessoa.pes_nome desc;
 
 -----------------------------------------------------------------------------------------------------------------------------
