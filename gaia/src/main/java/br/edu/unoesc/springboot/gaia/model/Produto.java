@@ -69,6 +69,13 @@ public class Produto implements Serializable{
 	private Long principioAtivo;
 	
 	//-------------------------------------------------------------------------------------------------//
+	
+	/**
+	 * Construtor vazio de Produto.
+	 */
+	public Produto() {
+	}
+	
 	/**
 	 * Contrutor de Produto (Sem descricao, campo nao obrigatorio).
 	 * @param nome Nome do Produto

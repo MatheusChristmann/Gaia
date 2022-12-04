@@ -31,6 +31,12 @@ public class PrincipioAtivo implements Serializable{
 	 */
 	@Column(name="pra_descricao", length = 40, nullable = false)
 	private String descricao;
+		
+	/**
+	 * Construtor vazio de Principio Ativo.
+	 */
+	public PrincipioAtivo() {
+	}
 	
 	/**
 	 * Construtor de Principio Ativo.

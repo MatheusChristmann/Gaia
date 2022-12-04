@@ -39,6 +39,12 @@ public class Cargo implements Serializable{
 	private Double salario;
 
 	/**
+	 * Construtor vazio de Cargo.
+	 */
+	public Cargo() {
+	}
+	
+	/**
 	 * Construtor de Cargo
 	 * @param descricao Descricao do Cargo
 	 * @param salario Salario do Cargo
@@ -49,7 +55,7 @@ public class Cargo implements Serializable{
 	}
 
 	/**
-	 * Obtem o ccdigo.
+	 * Obtem o codigo.
 	 * @return <code>Long</code> especificando o ccdigo do cargo.
 	 */
 	public Long getCod() {
