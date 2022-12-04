@@ -29,10 +29,6 @@ public class Cargo implements Serializable{
 		return cod;
 	}
 
-	public void setCod(Long cod) {
-		this.cod = cod;
-	}
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -43,5 +39,20 @@ public class Cargo implements Serializable{
 
 	public Double getSalario() {
 		return salario;
+	}
+	
+	private void setSalario(Double salario){
+		this.salario = salario;
+	}
+	
+	public void alterarSalario(Double valorNovo){
+		if(this.getDescricao().toUpperCase().contains("GERENTE")){
+			this.setSalario(valorNovo);
+		}
+		else{
+			if(valorNovo < 5000){
+				this.setSalario(valorNovo);
+			}
+		}
 	}
 }	

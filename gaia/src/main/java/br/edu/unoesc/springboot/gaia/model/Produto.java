@@ -4,17 +4,10 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
-import br.edu.unoesc.springboot.gaia.enums.TipoMedicamento;
-import br.edu.unoesc.springboot.gaia.enums.TipoTarja;
 
 @Entity
 @Table(name = "produto")
@@ -38,19 +31,16 @@ public class Produto implements Serializable{
 	@Column(name="pro_status", length = 1, nullable = false, columnDefinition = "char(1)")
 	private Character status;
 		
-	@Column(name="pro_tipmedicamento", length = 1, nullable = true, columnDefinition = "char(1)")
-	@Enumerated(EnumType.STRING)
-	private TipoMedicamento tipoMedicamento;
+	@Column(name="pro_tipomedicamento", length = 1, nullable = false, columnDefinition = "char(1)")
+	private Character tipoMedicamento;
 	
-	@Column(name="pro_tiptarja", length = 1, nullable = true, columnDefinition = "char(1)")
-	@Enumerated(EnumType.STRING)
-	private TipoTarja tipoTarja;
+	@Column(name="pro_tipotarja", length = 1, nullable = false, columnDefinition = "char(1)")
+	private Character tipoTarja;
 	
-	@ManyToOne
-	@JoinColumn(name="pro_principioativo", nullable = true)
-	PrincipioAtivo principioAtivo;
-
-	// ----- GETTERS and SETTERS ----- //
+	@Column(name="pro_principioativo", nullable = true, columnDefinition = "integer")
+	private Long principioAtivo;
+	
+	//-------------------------------------------------------------------------------------------------//
 	
 	public String getNome() {
 		return nome;
@@ -74,29 +64,29 @@ public class Produto implements Serializable{
 
 	public void setStatus(Character status) {
 		this.status = status;
-	}
+	}	
 
-	public TipoMedicamento getTipoMedicamento() {
+	public Character getTipoMedicamento() {
 		return tipoMedicamento;
 	}
 
-	public void setTipoMedicamento(TipoMedicamento tipoMedicamento) {
+	public void setTipoMedicamento(Character tipoMedicamento) {
 		this.tipoMedicamento = tipoMedicamento;
 	}
 
-	public TipoTarja getTipoTarja() {
+	public Character getTipoTarja() {
 		return tipoTarja;
 	}
 
-	public void setTipoTarja(TipoTarja tipoTarja) {
+	public void setTipoTarja(Character tipoTarja) {
 		this.tipoTarja = tipoTarja;
 	}
 
-	public PrincipioAtivo getPrincipioAtivo() {
+	public Long getPrincipioAtivo() {
 		return principioAtivo;
 	}
 
-	public void setPrincipioAtivo(PrincipioAtivo principioAtivo) {
+	public void setPrincipioAtivo(Long principioAtivo) {
 		this.principioAtivo = principioAtivo;
 	}
 
@@ -106,5 +96,15 @@ public class Produto implements Serializable{
 
 	public Double getPreco() {
 		return preco;
-	}	
+	}
+	
+	public void setPreco(Double preco) {
+		this.preco = preco;
+	}
+	
+	public void alterarPreco(Double valorNovo){
+		if(valorNovo >= 0 && valorNovo <= 1000){
+			setPreco(valorNovo);
+		}
+	}
 }

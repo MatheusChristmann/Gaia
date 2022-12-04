@@ -9,11 +9,8 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.edu.unoesc.springboot.gaia.model.Cargo;
@@ -29,16 +26,6 @@ import br.edu.unoesc.springboot.gaia.repository.ProdutoRepository;
  */
 @RestController
 public class GreetingsController {
-    /**
-     *
-     * @param name the name to greet
-     * @return greeting text
-     */  
-	@RequestMapping(value = "/oi", method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public String greetingText() {
-        return "Hello World! Começa aqui o projeto Gaia...";
-    }
 	
 	@GetMapping(value="listarProdutos")	
 	  @ResponseBody
@@ -53,8 +40,8 @@ public class GreetingsController {
     
 	@PostMapping(value = "salvarJSONProduto")
     @ResponseBody
-    public ResponseEntity<Produto> salvarJSONProduto(@RequestBody Produto produto){	
-		Produto prod = produtoRepository.save(produto);    	    	
+    public ResponseEntity<Produto> salvarJSONProduto(@RequestBody Produto produto){					
+		Produto prod = produtoRepository.save(produto);				
     	return new ResponseEntity<Produto>(prod, HttpStatus.CREATED);
     }
 	
@@ -78,6 +65,7 @@ public class GreetingsController {
 		List<Produto> produto = produtoRepository.buscarProdutoPorNome(nome.trim().toUpperCase());
 		return new ResponseEntity<List<Produto>>(produto, HttpStatus.OK);
 	}
+	
 	
 	// ----- PRINCIPIO ATIVO ----- //
 	@Autowired	
@@ -103,6 +91,7 @@ public class GreetingsController {
 		List<PrincipioAtivo> pAtivo = principioAtivoRepository.buscarPrincipioAtivoPorNome(descricao.trim().toUpperCase());
 		return new ResponseEntity<List<PrincipioAtivo>>(pAtivo, HttpStatus.OK);
 	}
+	
 	
 	// ----- CARGO ----- //
 	@Autowired	

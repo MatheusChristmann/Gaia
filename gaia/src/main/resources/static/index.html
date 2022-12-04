@@ -42,6 +42,7 @@
         			</li>
       			</ul>
     		</div>
+    		<a class="navbar-brand" href="https://www.instagram.com/computacaounoescsmo/"><img src="./images/iconInstagram.png" alt="" width="30" height="24"></a>
   		</div>
 	</nav>
 	
@@ -78,8 +79,8 @@
 			</div>
   			<div class="w-100"><br></div>
   			<div class="col-md-3">
-	    		<label for="pro_tipmedicamento" class="form-label">Tipo de Medicamento</label>
-    			<select id="pro_tipmedicamento" class="form-select" required = "required">
+	    		<label for="pro_tipomedicamento" class="form-label">Tipo de Medicamento</label>
+    			<select id="pro_tipomedicamento" class="form-select" required = "required">
       				<option value="R" selected>Referência</option>
       				<option value="S">Similar</option>
       				<option value="G">Genérico</option>
@@ -87,8 +88,8 @@
   			</div>
   			
   			<div class="col-md-2">
-	    		<label for="pro_tiptarja" class="form-label">Tarja</label>
-    			<select id="pro_tiptarja" class="form-select" required = "required">
+	    		<label for="pro_tipotarja" class="form-label">Tarja</label>
+    			<select id="pro_tipotarja" class="form-select" required = "required">
 	      			<option value="S" selected>Sem Tarja</option>
       				<option value="A">Amarela</option>
       				<option value="V">Vermelha</option>
@@ -204,8 +205,8 @@
 			var descricao = $("#pro_descricao").val();
 			var preco = $("#pro_preco").val();
 			var status = $("#pro_status").val();
-			var tipmedicamento = $("#pro_tipmedicamento").val();
-			var tiptarja = $("#pro_tiptarja").val();
+			var tipomedicamento = $("#pro_tipomedicamento").val();
+			var tipotarja = $("#pro_tipotarja").val();
 			var principioativo = $("#pro_principioativo").val();
 			
 			if(nome == ""){
@@ -235,7 +236,14 @@
 			$.ajax({
 				method : "POST",
 				url : "salvarJSONProduto",
-				data : JSON.stringify({cod: cod, nome: nome, descricao: descricao, preco: preco, status: status, tipmedicamento: tipmedicamento, tiptarja: tiptarja, principioativo: principioativo}),
+				data : JSON.stringify({	cod: cod, 
+										nome: nome, 
+										descricao: descricao, 
+										preco: preco, 
+										status: status, 
+										tipoMedicamento: tipomedicamento, 
+										tipoTarja: tipotarja, 
+										principioAtivo: principioativo}),
 				contentType : "application/json; charset=utf-8",
 				success : function(response){
 					$("#pro_cod").val(response.cod);
@@ -281,9 +289,9 @@
 						$("#pro_descricao").val(response.descricao);
 						$("#pro_preco").val(response.preco);
 						$("#pro_status").val(response.status);
-						$("#pro_tipmedicamento").val(response.tipmedicamento);
-						$("#pro_tiptarja").val(response.tiptarja);
-						$("#pro_principioativo").val(response.principioativo);
+						$("#pro_tipomedicamento").val(response.tipoMedicamento);
+						$("#pro_tipotarja").val(response.tipoTarja);
+						$("#pro_principioativo").val(response.principioAtivo);
 						$('#modalPesquisarProduto').modal('hide');			  
 					}			 			  
 				}).fail(function(xhr, status, errorThrown) {
