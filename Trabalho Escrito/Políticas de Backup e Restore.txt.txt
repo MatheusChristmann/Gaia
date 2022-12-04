@@ -53,7 +53,7 @@ echo %date%
    set PGUSER=gaiadba
    set BACKUP_FILE=C:\Backup\gaiadbBackup_%date%.backup
    echo backup file name is %BACKUP_FILE%
-   SET PGPASSWORD=_#@gaiadba@#_
+   SET PGPASSWORD=@gaiadba2022@
    echo on
    "C:\Program Files\PostgreSQL\14\bin\pg_dump.exe" -h localhost -p 5432 -U gaiadba -C -F p  -v -f %BACKUP_FILE% gaiadb
 pause
@@ -63,7 +63,7 @@ RESTORE:
 
 @echo off
    set PGUSER=gaiadba
-   SET PGPASSWORD=_#@gaiadba@#_
+   SET PGPASSWORD=@gaiadba2022@
    echo on
     "C:\Program Files\PostgreSQL\14\bin\psql.exe" -h localhost -p 5432 -d gaiadb -U gaiadba -f C:\Backup\"AQUI VAI O NOME DO BACKUP".backup
 pause
