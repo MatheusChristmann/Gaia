@@ -20,10 +20,6 @@ import br.edu.unoesc.springboot.gaia.repository.CargoRepository;
 import br.edu.unoesc.springboot.gaia.repository.PrincipioAtivoRepository;
 import br.edu.unoesc.springboot.gaia.repository.ProdutoRepository;
 
-/**
- *
- * A sample greetings controller to return greeting text
- */
 @RestController
 public class GreetingsController {
 	
