@@ -13,7 +13,7 @@ O Sistema Gaia se trata de um projeto avaliativo para a matérias de Banco de Da
 #
 
 ### 🔎 Um pouco do que você encontrará por aqui:
-- Scripts de Banco de Dados em PostgreSQL
+- Scripts da estrtura de um Banco de Dados completo em PostgreSQL
 - Diagramas UML
 - Programação com Spring Boot, Ajax, Hibernate, Bootstrap e JPA
 
@@ -21,29 +21,37 @@ O Sistema Gaia se trata de um projeto avaliativo para a matérias de Banco de Da
 
 ### 📦 Estrutura de Pastas
 
-- 📁 Trabalho Escrito
-  - 📄 Projeto Gaia (Documentação e descrição do processo de desenvolvimento do trabalho)
-
 - 📁 Banco de Dados
   - 📁 Backup (Arquivos .BAT que realizam o processo de Backup e Restore do Banco)
-  - 📁 Modelo Relacional (Modelo Relacional do Projeto)
+  - 📁 Modelo Relacional (Modelo Relacional e Dicionário de Dados)
   - 📁 Scripts (Todos os Scripts da estrutura do Banco de Dados)
- 
+
 - 📁 Diagramas (Diagramas do Sistema)
 
-- 📁 gaia (Código Fonte do Sistema)
+- 📁 Documentação do Sistema (JAVADOC)
+
+- 📁 gaia (Código Fonte do Sistema )
+
+- 📁 Trabalho Escrito
+  - 📄 Projeto Gaia (Documentação e descrição do processo de desenvolvimento do trabalho)
   
+- 📄 Apresentação (Slides para a apresentação do Trabalho)
+   
 - 📄 README (Este arquivo que você está obervando agora mesmo)
 
 #
 
-### 🛠️ Ferramentas Utilizadas
+### 🛠️ Ferramentas e Tecnologias Utilizadas
 
 - Visual Paradigm
 - PostgreSQL
 - DBeaver
 - WPS Office
 - Eclipse
+- SpringBoot
+- Hibernate
+- JPA
+- Bootstrap
 
 #
 
