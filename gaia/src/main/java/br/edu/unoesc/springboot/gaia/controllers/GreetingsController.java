@@ -23,13 +23,7 @@ import br.edu.unoesc.springboot.gaia.repository.ProdutoRepository;
 @RestController
 public class GreetingsController {
 	
-	@GetMapping(value="listarProdutos")	
-	  @ResponseBody
-	public ResponseEntity<List<Produto>>listaProdutos(){
-	    List<Produto> produtos = produtoRepository.findAll();
-	    return new ResponseEntity<List<Produto>>(produtos, HttpStatus.OK) ;
-	}
-	
+	//-------------------------------------------------------------------------------------------------//
 	// ----- PRODUTO ----- //
     @Autowired
 	private ProdutoRepository produtoRepository;
@@ -62,7 +56,7 @@ public class GreetingsController {
 		return new ResponseEntity<List<Produto>>(produto, HttpStatus.OK);
 	}
 	
-	
+	//-------------------------------------------------------------------------------------------------//
 	// ----- PRINCIPIO ATIVO ----- //
 	@Autowired	
 	private PrincipioAtivoRepository principioAtivoRepository;
@@ -88,7 +82,7 @@ public class GreetingsController {
 		return new ResponseEntity<List<PrincipioAtivo>>(pAtivo, HttpStatus.OK);
 	}
 	
-	
+	//-------------------------------------------------------------------------------------------------//
 	// ----- CARGO ----- //
 	@Autowired	
 	private CargoRepository cargoRepository;

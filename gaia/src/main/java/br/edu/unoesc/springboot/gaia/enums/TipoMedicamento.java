@@ -25,6 +25,8 @@ public enum TipoMedicamento {
 	 */
 	private String descricao;
 	
+	//-------------------------------------------------------------------------------------------------//
+	
 	/**
 	 * Configura a descricao.
 	 * @param descricao Descricao.

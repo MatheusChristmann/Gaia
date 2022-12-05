@@ -30,6 +30,8 @@ public enum TipoTarja {
 	 */
 	private String descricao;
 	
+	//-------------------------------------------------------------------------------------------------//
+	
 	/**
 	 * Configura a descricao
 	 * @param descricao

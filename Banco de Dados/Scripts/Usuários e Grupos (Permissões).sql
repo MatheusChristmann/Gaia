@@ -93,7 +93,7 @@ to comprador;
 
 /* ATRIBUIÇÃO DE GRUPOS E PERMISSÕES PARA OS USUÁRIOS */
 
-alter database "gaiadb" owner to gaiadba;
+alter database "gaiadb" owner to gaiadba;  --Tornando o gaiadba o dono da base de dados
 
 grant gerente to otilia, roberson, franciele, jean;
 grant atendente to otilia, roberson, franciele, jean;

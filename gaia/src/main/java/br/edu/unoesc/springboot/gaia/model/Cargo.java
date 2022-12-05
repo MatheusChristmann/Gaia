@@ -38,6 +38,8 @@ public class Cargo implements Serializable{
 	@Column(name="car_salario", precision = 10, scale = 2, nullable = false)
 	private Double salario;
 
+	//-------------------------------------------------------------------------------------------------//
+	
 	/**
 	 * Construtor vazio de Cargo.
 	 */
